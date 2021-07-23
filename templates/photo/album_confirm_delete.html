@@ -1,0 +1,32 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block content %}
+{% load socialaccount %}
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
+        <li class="breadcrumb-item">Main</li>
+        <li class="breadcrumb-item active">Introduction</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='fal fa-info-circle'></i> 소개
+            <small>
+                이 사이트의 간단한 소개입니다.
+            </small>
+        </h1>
+    </div>
+    <div class="fs-lg fw-300 p-5 bg-white border-faded rounded mb-g">
+
+        <h1>Album Delete <small class="font-italic">(including related photos)</small></h1>
+        <br>
+
+        <form action="." method="post">{% csrf_token %}
+            <p>Are you sure you want to delete "{{ object }}" ?</p>
+            <input type="submit" value="Confirm" class="btn btn-danger btn-sm" />
+        </form>
+    </div>
+{% endblock %}
+

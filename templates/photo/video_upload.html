@@ -1,0 +1,115 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block content %}
+{% load socialaccount %}
+{% load widget_tweaks %}
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
+        <li class="breadcrumb-item">Main</li>
+        <li class="breadcrumb-item active">Introduction</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='fal fa-info-circle'></i> 앨범폼
+            <small>
+                 앨범을 새롭게 생성하고 사진을 엮어 줍니다.
+            </small>
+        </h1>
+    </div>
+    <div class="fs-lg fw-300 p-5 bg-white border-faded rounded mb-g">
+
+
+        <h1>앨범/사진 생성/추가 ----------- 사용자 : {{user}}</h1>
+        <p class="font-italic">앨범을 생성하거나 업데이트 할수 있다. 단 자신이 생성한 것이어야 한다.</p>
+
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <div class="font-weight-bold">Wrong! Please correct the form error(s) below.</div>
+            {{ form.errors }}
+        </div>
+        {% endif %}
+
+        {% if formset.errors %}
+        <div class="alert alert-warning">
+            <div class="font-weight-bold">Wrong! Please correct the formset error(s) below.</div>
+            {% for formerrors in formset.errors %}
+                {{ formerrors }}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if form.is_multipart or formset.is_multipart %}
+        <form enctype="multipart/form-data" action="" method="post">
+        {% else %}
+        <form action="." method="post">
+        {% endif %}
+        {% csrf_token %}
+
+            <h4>create or update album contents</h4>
+
+            <fieldset class="card pt-3">
+
+                <div class="form-group row">
+                    {{ form.name|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+                    <div class="col-sm-5">
+                        {{ form.name|add_class:"form-control"|attr:"autofocus" }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form.description|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+                    <div class="col-sm-5">
+                        {{ form.description|add_class:"form-control" }}
+                    </div>
+                </div>
+
+            </fieldset>
+            <br>
+
+            <h4>create or update photo contents</h4>
+
+            <fieldset class="card pt-3">
+
+                {{ formset.management_form }}
+                {% for form in formset %}
+                    {{ form.id }}
+                    {# form.album #}
+                <div class="form-group row">
+                    {{ form.image|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+                    <div class="col-sm-5">
+                        {{ form.image|add_class:"form-control-file" }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form.title|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+                    <div class="col-sm-5">
+                        {{ form.title|add_class:"form-control" }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form.description|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+                    <div class="col-sm-8">
+                        {{ form.description|add_class:"form-control"|attr:"rows:3" }}
+                    </div>
+                </div>
+
+                <hr>
+                {% endfor %}
+
+            </fieldset>
+
+            <div class="form-group card py-1">
+                <div class="offset-sm-3 col-sm-5">
+                    <input type="submit" value="Submit" class="btn btn-info"/>
+                </div>
+            </div>
+
+        </form>
+    </div>
+{% endblock %}
+

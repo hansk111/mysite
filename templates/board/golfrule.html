@@ -1,0 +1,540 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main id="js-page-content" role="main" class="page-content">
+
+
+
+    <div class="row">
+        <div class="col-xl-12">
+           
+            <div id="panel-5" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Golf rule<span class="fw-300"><i>Green</i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="panel-tag">
+                            퍼팅 그린에서의 골프룰을 알아 보자
+                        </div>
+                        <div class="accordion accordion-hover" id="js_demo_accordion-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#js_demo_accordion-5a" aria-expanded="true">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        옮겨 놓은 마크를 원위치에 되돌리지 않고 퍼트했다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-5a" class="collapse hidden" data-parent="#js_demo_accordion-5">
+                                    <div class="card-body">
+                                        <b>2벌타 후  그대로 경기를 진행한다.</b><br>
+                                        마크가 동반 경기자의 퍼트에 방해가 되는 경우 클럽 헤드 1개 또는 2개 정도의 거리만큼 마크를 옮겨 주는 것이 매너다. 그러나 옮겨 놓은 것을 잊은 채 그대로
+                                        볼을 플레이스하고 퍼트해 버리면 벌타를 받는다. 단, 이경우는 다시 볼을 리플레이스하고 플레이할 필요는 없으며, 홀 아웃한 스크어에 2타를 추가하면 된다.
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-5b" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        한 손으로 깃대를 잡은 채 퍼트 했다. 깃대를  뽑아  손에 든 채 핀의 5cm 옆에  멈춘 볼을 한 손으로  쳐 넣었다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-5b" class="collapse" data-parent="#js_demo_accordion-5">
+                                    <div class="card-body">
+                                        <b>벌타 없음. 그대로 경기를 진행한다.</b><br>
+                                        볼을 끌어 당기거나 밀어내지 않고 정상적으로 어드레스를 취하고 스트로크한 것이라면 깃대를 잡은 채 퍼팅해도 규칙 위반이 아니다.
+                                        단, 볼이 깃대에 맞으면 2벌타를 받으므로 주의해야 한다. 아무리 짧아도 1타는 1타이므로 마지막가지 집중해야 한다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-5c" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        캐디에게 우산을 받치게 한 채 퍼트했다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-5c" class="collapse" data-parent="#js_demo_accordion-5">
+                                    <div class="card-body">
+                                        <b>2벌타. 그대로 경기를 진행한다.</b><br>
+                                        허용되지 않는다. 스트로크하는 동안 다른 사람의 물리적인 원조나 자연현상의 비바람으로부터 보호를 받으면 2벌타를 받는다.
+                                        다만 플레이어가 한 손으로 우산을 잡고 다른 손으로 스트로크하는 것은 규칙 위반이 아니다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-5d" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        홀 가장자리에 걸쳐 있는 볼. 볼이 들어 갈때 까지 20초 가까이 지켜봐도 되는가?
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-5d" class="collapse" data-parent="#js_demo_accordion-5">
+                                    <div class="card-body">
+                                        <b>1벌타. 볼이 멈춘 지점에서 경기를 진행한다.</b><br>
+                                        안된다. 규칙에는 볼이 홀 가장자리에 걸쳐 있는 경우에 대한 규정이 있다. 플레이어는 그 볼이 멈췄는지 여부를 확인하기 위해 10초간 기다릴 수 있다.
+                                        10초 이내에 볼이 홀에 들어가면 마지막 스트로크로 홀에 들어간 것으로 인정한다. 10초가 지난 뒤 볼이 홀에 들어가면 마지막 스트로크에 1벌타를 더하고
+                                        홀에 들어간 것으로 간주한다.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="panel-2" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Golf rule<span class="fw-300"><i>Bunker</i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="panel-tag">
+                            벙커에서의 골프룰을 알아 보자
+                        </div>
+                        <div class="accordion accordion-hover" id="js_demo_accordion-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#js_demo_accordion-2a" aria-expanded="true">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        모래에 묻힌 볼을 확인하기 위해 모래를 파냈다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-2a" class="collapse hidden" data-parent="#js_demo_accordion-2">
+                                    <div class="card-body">
+                                        <b>벌타없음.  그대로 경기를 진행한다.</b><br>
+                                        볼이 확인할 수 없을 정도로 모래 속에 묻혀 있을 때는 벌 없이 모래에 접촉하거나 모래를 옮길 수 있다. 확인한 다음에는 모래를 제자리에 덮어서 최초의 라이와 
+                                        되도록 같은 상태로 만들어 놓아야 한다. 이때 볼의 일부를 조금난 볼 수 있도록 해 두는 것은 허용된다. 단, 필요 이상으로 모래를 제거하고 플레이하면 라이의 개선으로
+                                        간주되어 2벌타를 받는다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-2b" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        샷을 하기 전에 모래를 발로 찼다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-2b" class="collapse" data-parent="#js_demo_accordion-2">
+                                    <div class="card-body">
+                                        <b>2벌타. 그대로 경기를 진행한다.</b><br>
+                                        벙커 샷을 하기 위해 스탠스를 취할 때 발을 모래 속으로 파묻을 수는 있으나 발로 모래를 차는 것은 해저드의 상태를 테스트하는 행위로 규정하고 있다.
+                                        벙커 안에서 발이나 고무래를 끌며 걸어가는 것도 해저드 테스트로 간주한다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-2c" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        벙커 샷을 한 볼이 다른 벙커에 들어간 뒤 처음 벙커에서 클럽 헤드로 몇 번씩 휘두르며 샷 연습을 했다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-2c" class="collapse" data-parent="#js_demo_accordion-2">
+                                    <div class="card-body">
+                                        <b>벌타없음. 그대로 경기를 진행한다.</b><br>
+                                        벙커에서 스트로크한 볼이 다른 벙커 안으로 들어간 경우, 처음의 벙커 안을 테스트 하는 것은 규칙 위반이 되지 않는다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-2d" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        벙커 탈출 후 모래를 골랐는데 볼이 되돌아 왔다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-2d" class="collapse" data-parent="#js_demo_accordion-2">
+                                    <div class="card-body">
+                                        <b>벌타없음. 그대로 경기를 진행한다.</b><br>
+                                        벙커에서 탈출하지 않았는데 벙커를 편평하게 골랐다면 다음 스트로크와 관련해서 위반이나, 벙커 샷을 마치고 난 뒤, 볼이 벙커 밖에 있는 동안 벙커 안의 모래를 
+                                        편평하게 골랐다면 볼이 다시 굴러 들어와도 상관없다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-2e" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        벙커 탈출에 실패하여 클럽을 내던져 버렸다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-2e" class="collapse" data-parent="#js_demo_accordion-2">
+                                    <div class="card-body">
+                                        <b>2벌타. 그대로 경기를 진행한다.</b><br>
+                                        규칙에서 스트로크한 후에 일정한 조건에 따라 모래를 정리하는 것은 인정하지만, 질문과 같은 행위를 하는 것은 인정하지 않는다.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="panel-3" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Golf rule<span class="fw-300"><i>Teeing Ground</i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="panel-tag">
+                            티잉 그라운드에서의 골프룰을 알아 보자
+                        </div>
+                        <div class="accordion accordion-hover" id="js_demo_accordion-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#js_demo_accordion-3a" aria-expanded="true">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        티 구역 밖에서 쳤다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-3a" class="collapse hidden" data-parent="#js_demo_accordion-3">
+                                    <div class="card-body">
+                                        <b>2벌타.  티 구역 안에서 다시 스트로크한다.</b><br>
+                                        일반적으로 티잉 그라운드는 페어웨이보다 한 단 높게 만들어져 있는 경우가 많은데, 이 부분이 모두 티잉 그라운드는 아니다. 티마커 2개의 바깥쪽을 경계로 하여 측면이 2클럽
+                                         길이인 직사각형 구역으로 정해져 있다. 티 구역 밖에서 플레이한 스트로크 수는 카운트 하지 않으므로 티 구역 안에서 제3타로 다시 쳐야만 한다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3b" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        대기 시간에 솔방울을 쳤다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-3b" class="collapse" data-parent="#js_demo_accordion-3">
+                                    <div class="card-body">
+                                        <b>벌타없음. 그대로 경기를 진행한다.</b><br>
+                                        솔방울을 치는 것은 연습 스트로크가 아니다. 규칙에서는 플레이어가 한 홀을 플레이하는 중에 스트로크를 연습하는 것을 금지하고 있다.
+                                        단, 플레이를 지연시키지 않는다면 플레이를 막 끝낸 그린, 연습 그린, 다음 홀의 티잉 그라운드에서의 간단한 퍼트나 칩샷 연습은 허용하고 있다.
+                                        물론 벙커에서의 연습이나 본격적인 스트로크는 할 수 없다. 위반 시에는 2벌타를 받는다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3c" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        티 마크의 방향이 맞지 않아 플레이 방향으로 향하도록 위치를 바꿨다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-3c" class="collapse" data-parent="#js_demo_accordion-3">
+                                    <div class="card-body">
+                                        <b>경기 실격. 라운드는 무효.</b><br>
+                                        티 마크는 그 홀의 제1타를 칠 때까지는 고정물로 간주하므로 뽑거나 이동할 수 없다. 단, 그 팀의 누군가가 아직 스트로크하기 전에 티를 원래 위치에 되돌려 놓은
+                                        경우에는 벌타를 수정하여 2벌타가 된다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3d" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        살짝 굴러간 볼이 티마커 근처에서 멈췄다. 다음 샷을 할때 방해가 도어서 티 마크를 제거했다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-3d" class="collapse" data-parent="#js_demo_accordion-3">
+                                    <div class="card-body">
+                                        <b>벌타없음. 그대로 경기를 진행한다.</b><br>
+                                        한번 스트로크를 한 후에는 티 마커를 장애물로 취급하므로 움직일 수 있다면 티 마커를 제거하고 플레이할 수 있다. 움직일 수 없는 경우는 움직일 수 없는 장애물로 처리할 수 있다.
+                                        단, 볼을 치고 난 뒤에는 반드시 원래 위치로 돌려 놓는다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3e" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        긴장해서 그만 헛스윙을 하고 말았다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-3e" class="collapse" data-parent="#js_demo_accordion-3">
+                                    <div class="card-body">
+                                        <b>벌타 없음. 동반 경기자의 샷이 끝난 후에 다시 친다.</b><br>
+                                        헛스윙이라도 클럽 헤드가 볼이 있는 지점을 통과해 버리면 스트로크로 간주하여 1타가 되고, 다음 샷은 2타째가 된다. 볼을 치기 전의 연습 스윙은 
+                                        스트로크는 아니지만, 초보자의 경우 볼 근처에서의 연습 스윙을 헛스윙으로 오해하기 쉽다.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="panel-4" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Golf rule<span class="fw-300"><i>Through the Green</i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="panel-tag">
+                            페어웨이에서의 골프룰을 알아보자
+                        </div>
+                        <div class="accordion accordion-hover" id="js_demo_accordion-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#js_demo_accordion-4a" aria-expanded="true">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        다른 볼을 드롭한 뒤에 초구를 발견했다. 초구로 플레이 할수 있는가?
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-4a" class="collapse hidden" data-parent="#js_demo_accordion-4">
+                                    <div class="card-body">
+                                        <b>1벌타.  드롭한 볼로 경기를 진행한다.</b><br>
+                                        초구로 플레이 할수 없다. 볼을 5분 이내에 찾았다 하더라도 초구를 포기하고 최후로 플레이한 곳에서 다른 볼을 플레이할 의사를 가지고 드롭했으므로
+                                        '스트로크와 거리의 처리'에 의하여 볼을 인 플레이로 한 것이다. 초구는 분실구가 되고 스트로크와 거리의 벌 1타를 받고, 드롭한 볼로 플레이를 계속해야 한다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-4b" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        흙투성이 볼이 내 것인지 확인하고 싶다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-4b" class="collapse" data-parent="#js_demo_accordion-4">
+                                    <div class="card-body">
+                                        <b>벌타없음. 확인 후 리플레이스하고 경기를 진행한다.</b><br>
+                                        플레이어는 확인을 위해 볼을 집어 올릴 수 있다. 이럴 경우 볼을 집어 올리겠다는 의사를 동반경기자에게 말하고, 볼의 위치를 마트한 다음에 볼을 집어 올린다.
+                                        마커나 동반 경기자에게 볼을 집어 올리는 것과 리플레이스 하는 장면을 지켜볼 기회를 주어야 한다. 볼이 진흙으로 더러워 졌다면, 확인에 필요한 최소한도 까지만
+                                        닦을 수 있다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-4c" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        드롭한 볼이 굴러서 해저드에 들어갔다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-4c" class="collapse" data-parent="#js_demo_accordion-4">
+                                    <div class="card-body">
+                                        <b>벌타 없음. 볼을 집어 올려 다시 드롭한다.</b><br>
+                                        재드롭해야 한다. 이 밖에도 스루 더 그린에 드롭해야 할 볼이 그린으로 굴러가거나 OB구역으로 들어가 버린 경우에도 벌 없이 재드롭하면 된다.
+                                        드롭은 구제처리의 일종으로 , 규칙상 허용된 범위 안에서만 행할 수 있을 뿐 플레이를 유리하게 하기 위한 것은 아니다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-4d" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        볼이 동반 경기자에게 맞았다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-4d" class="collapse" data-parent="#js_demo_accordion-4">
+                                    <div class="card-body">
+                                        <b>벌타없음. 볼이 멈춘 지점에서 경기를 진행한다.</b><br>
+                                        스트로크 플레이의 경우 동반경기자는 국외자이기 때문에 벌은 없으며, 그 볼은 있는 그 상태에서 그대로 플레이 해야 한다. 하지만
+                                        볼이 플레이어 자신의 몸에 맞았을 경우에는 1벌타를 받는다. 볼은 멈춘 곳에서 플레이 해야 한다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-4e" aria-expanded="false">
+                                        <i class="fal fa-golf-ball width-2 fs-xl"></i>
+                                        볼 뒤의 울퉁불퉁한 지면을 고르게 하다.
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-chevron-up fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-chevron-down fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="js_demo_accordion-4e" class="collapse" data-parent="#js_demo_accordion-4">
+                                    <div class="card-body">
+                                        <b>2벌타. 그대로 경기를 진행한다.</b><br>
+                                        플레이어는 페어웨이에서 지면을 돋우거나 지면의 울퉁불퉁한 곳을 고르는 행위를 할수 없다. 위와 같은 행동은 볼의 라이를 개선한 것으로 간주하여 2벌타를 받는다.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

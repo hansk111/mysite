@@ -1,0 +1,236 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block content %}
+{% load socialaccount %}
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
+        <li class="breadcrumb-item">블로그</li>
+        <li class="breadcrumb-item active">리스트</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='fal fa-blog'></i> Blog category2
+            <!-- <small>
+                블로그를 보실려면 제목을 클릭하세요.
+            </small> -->
+        </h1>
+    </div>
+
+    <div class="fs-lg fw-300 p-5 bg-white border-faded rounded mb-g">
+
+        <div class="col-xl-12">
+            <div class="row justify-content-between my-3">
+                <div class="input-group col-2">
+                    <select class="form-control shadow-inset-2 so">
+                        <option class="dropdown-item input-group-text" value="recent" {% if so == 'recent' %}selected{% endif %}>최신순</option>
+                        <option class="dropdown-item input-group-text" value="recommend" {% if so == 'recommend' %}selected{% endif %}>추천순</option>
+                        <option class="dropdown-item input-group-text" value="popular" {% if so == 'popular' %}selected{% endif %}>인기순</option>
+                    </select>
+                </div>
+                <!-- <div class="col-2">
+                    <select class="form-control eo">
+                        <option class="dropdown-item" value="all" {% if eo == 'all' %}selected{% endif %}>all</option>
+                        <option class="dropdown-item" value="golf" {% if eo == 'golf' %}selected{% endif %}>golf</option>
+                        <option class="dropdown-item" value="china" {% if eo == 'china' %}selected{% endif %}>china</option>
+                        <option class="dropdown-item" value="tebat" {% if eo == 'tebat' %}selected{% endif %}>tebat</option>
+                    </select>
+                </div> -->
+                <div class="input-group col-4">
+                    <input type="text" class="form-control shadow-inset-2 kw" value="{{ kw|default_if_none:'' }}" placeholder="Blog 검색">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fal fa-search" id="btn_search"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-g border shadow-0">
+                <div class="card-header">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col">
+                            <span class="h6 font-weight-bold text-uppercase">자유로운 블로그 작성</span>
+                        </div>
+                        <div class="col d-flex">
+                            <a href="{% url 'board:post_create' %}" class="btn btn-success btn-sm ml-auto mr-2 flex-shrink-0 waves-effect waves-themed">글쓰기</a>
+                        </div>
+                        <form id="searchForm" method="get" action="{% url 'board:board' %}">
+                            <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+                            <input type="hidden" id="page" name="page" value="{{ page }}">
+                            <input type="hidden" id="so" name="so" value="{{ so }}">
+                            <!-- <input type="hidden" id="eo" name="eo" value="{{ eo }}"> -->
+                        </form>
+                    </div>
+                </div>
+                <div class="card-header p-0">
+                    <div class="row no-gutters row-grid align-items-stretch">
+                        <div class="col-sm-6 col-md-2 col-xl-1 hidden-md-down">
+                            <div class="text-uppercase text-muted py-2 px-3">추천/댓글</div>
+                        </div>
+                        <div class="col-12 col-md">
+                            <div class="text-uppercase text-muted py-2 px-3">제목</div>
+                        </div>
+                        <div class="col-sm-6 col-md-2 col-xl-2 hidden-md-down">
+                            <div class="text-uppercase text-muted py-2 px-3">작성일자</div>
+                        </div>
+                        <div class="col-sm-6 col-md-2 hidden-md-down">
+                            <div class="text-uppercase text-muted py-2 px-3">작성자</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    {% if post_list %}
+                    <div class="row no-gutters row-grid">
+                        <!-- thread -->
+                        {% for post in post_list %}
+                        <div class="col-12">
+                            <div class="row no-gutters row-grid align-items-stretch">
+                                <div class="col-4 col-md-2 col-xl-1 hidden-md-down">
+                                    <div class="p-3 p-md-3">
+                                        <span class="d-block text-muted">{{ post.id }}</span>
+                                        <!-- {% if post.voter.count > 0 %}
+                                        <span class="badge badge-info rounded fal fa-thumbs-up"> {{ post.voter.count }} 개</span>
+                                        {% endif %}
+                                        {% if post.comment_set.count > 0 %}
+                                        <span class="badge badge-warning rounded fal fa-comment-lines"> {{ post.comment_set.count }} 개</span>
+                                        {% endif %} -->
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="p-3">
+                                        <div class="d-flex">
+                                            <!-- <span class="icon-stack display-4 mr-3 flex-shrink-0">
+                                                <i class="base-2 icon-stack-3x color-primary-400"></i>
+                                                <i class="base-10 text-white icon-stack-1x"></i>
+                                                <i class="ni md-profile color-primary-800 icon-stack-2x"></i>
+                                            </span> -->
+                                            <div class="d-inline-flex flex-column">
+                                                <a href="{% url 'board:detail' post.id %}" class="fs-lg fw-500 d-block">
+                                                    {{ post.subject }}
+                                                    {% if post.comment_set.count > 0 %}
+                                                    <span class="badge badge-warning rounded fal fa-comment-lines">{{ post.comment_set.count }}</span>
+                                                    {% endif %}
+                                                    {% if post.voter.count > 0 %}
+                                                    <span class="badge badge-info rounded fal fa-thumbs-up">{{ post.voter.count }}</span>
+                                                    {% endif %}
+                                                </a>
+                                                
+                                                <div class="d-block text-muted fs-sm">
+                                                    {{ post.content|truncatewords:40 }}<span class="badge badge-danger rounded">Sticky</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-md-2 col-xl-2 hidden-md-down">
+                                    <div class="p-3 p-md-3">
+                                        <span class="d-block text-muted">{{ post.create_date|date:"Y-m-d H:i" }}</span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-8 col-md-2 hidden-md-down">
+                                    <div class="p-3 p-md-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-inline-block align-middle status status-success status-sm mr-2">
+                                                {% if post.author.user_image %}
+                                                <span class="profile-image-md rounded-circle d-block" style="background-image:url('{{post.author.user_image.url}}'); background-size: cover;"></span>
+                                                {% else %}
+                                                <span class="profile-image-md rounded-circle d-block" style="background-image:url('/media/images/avatar-f.png'); background-size: cover;"></span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="flex-1 min-width-0">
+
+                                                <div class="text-muted small text-truncate">
+                                                    {{ post.author.username }} <a href="javascript:void(0)" class="text-info"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <!-- thread -end -->
+                        <!-- thread -->
+                    </div>
+                    {% else %}
+                    <p>질문이 없습니다.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <!-- 이전페이지 -->
+                {% if post_list.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" data-page="{{ post_list.previous_page_number }}" href="#">이전</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+                </li>
+                {% endif %}
+                <!-- 페이지리스트 -->
+                {% for page_number in post_list.paginator.page_range %}
+                {% if page_number >= post_list.number|add:-5 and page_number <= post_list.number|add:5 %}
+                    {% if page_number == post_list.number %}
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                    </li>
+                    {% endif %}
+                {% endif %}   
+                {% endfor %}
+                <!-- 다음페이지 -->
+                {% if post_list.has_next %}
+                <li class="page-item">
+                    <a class="page-link" data-page="{{ post_list.next_page_number }}" href="#">다음</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+    </div>
+</main>
+{% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $(".page-link").on('click', function() {
+        $("#page").val($(this).data("page"));
+        $("#searchForm").submit();
+    });
+
+    $("#btn_search").on('click', function() {
+        $("#kw").val($(".kw").val());
+        $("#page").val(1);  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
+        $("#searchForm").submit();
+    });
+
+    $(".so").on('change', function() {
+        $("#so").val($(this).val());
+        $("#page").val(1);
+        $("#searchForm").submit();
+    });
+
+    // $(".eo").on('change', function() {
+    //     $("#eo").val($(this).val());
+    //     $("#page").val(1);
+    //     $("#searchForm").submit();
+    // });
+
+});
+</script>
+{% endblock %}
+
+

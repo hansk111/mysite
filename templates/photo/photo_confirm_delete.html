@@ -1,0 +1,54 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block content %}
+{% load socialaccount %}
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
+        <li class="breadcrumb-item">Main</li>
+        <li class="breadcrumb-item active">Introduction</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='fal fa-info-circle'></i> 소개
+            <small>
+                이 사이트의 간단한 소개입니다.
+            </small>
+        </h1>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel panel-collapsed">
+                <div class="panel-hdr">
+                    <h2>
+                        <a class="h2" href="">
+                            사진삭제</a>&emsp;
+                        <span class="font-italic h5">삭제 버튼을 클릭하세요.</span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <form action="." method="post">{% csrf_token %}
+                            <p> "{{ object }}"을 삭제 하시겠습니까?</p>
+                            <img class="img-responsive" src="{{ object.image.thumb_url }}" alt="image">
+                            <input type="submit" value="삭제" class="" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>           
+
+
+
+{% endblock %}
+

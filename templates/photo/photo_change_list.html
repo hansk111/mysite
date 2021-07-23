@@ -1,0 +1,71 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block content %}
+{% load socialaccount %}
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
+        <li class="breadcrumb-item">Main</li>
+        <li class="breadcrumb-item active">Introduction</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='fal fa-info-circle'></i> 이곳은
+            <small>
+                사진을 변경/삭제 하는 곳
+            </small>
+        </h1>
+    </div>
+
+    
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel panel-collapsed">
+                <div class="panel-hdr">
+                    <h2>
+                        <a class="h2" href="">
+                            사진 변경/삭제 - {{user}}님</a>
+                        <span class="font-italic h5">이 올리신 사진을 변경하거나 삭제 할수 있어요</span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="card-group">
+                            {% for item in object_list %}
+                            <div class="card">
+                                <div class="w-100 bg-fusion-50 rounded-top" style="padding:10px 0 10px;">
+                                    <img class="card-img-top" src="{{ item.image.thumb_url }}" alt="image">
+                                    
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ item.album }}</h5>
+                                    <p class="card-text">{{ item.title }}</p>
+                                    <p class="card-text">{{ item.description }}</p>
+                                </div>
+                                <div class="card-footer">
+                                    
+                                        <div class="btn-group">
+                                        <a class="btn btn-warning" href="{% url 'photo:photo_update' item.id %}">Update</a>
+                                        <a class="btn btn-danger" href="{% url 'photo:photo_delete' item.id %}">Delete</a>
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+</main>
+{% endblock %}
+

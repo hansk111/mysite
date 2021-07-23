@@ -1,0 +1,122 @@
+<div class="col-md-3 ml-auto">
+  <div id="panel-1" class="panel">
+    <div class="panel-hdr">
+        <h2>
+            <a class="h2" href="{% url 'board:board' %}">
+                 카테고리</a>&emsp;
+            <span class="font-italic h5">관심분야를 선택하세요.</span>
+        </h2>
+        <div class="panel-toolbar">
+            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+        </div>
+    </div>
+    <div class="panel-container show">
+      <div class="panel-content">
+    <aside class="sidebar">
+      <!-- <div class="card mb-4">
+        <div class="card-body"> -->
+         
+          <div class="">
+            <div id="panel-1" class="panel">
+              <div class="panel-container show">
+                <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                  <!-- <ol class="carousel-indicators">
+                      <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                      <li data-target="#carouselExampleCaptions" data-slide-to="1" class=""></li>
+                      <li data-target="#carouselExampleCaptions" data-slide-to="2" class=""></li>
+                  </ol> -->
+                  <div class="carousel-inner">
+                    {% for ca in categoryall %}
+                    {% if ca.id == 1 %}
+                    <div class="carousel-item active">
+                    {% else %}
+                    <div class="carousel-item">
+                    {% endif %}
+                      <img class="d-block w-100" src="https://picsum.photos/id/{{ca.id}}/200/100" alt="First slide [800x400]">
+                      <div class="carousel-caption d-none d-md-block">
+                        <a href="{% url 'board:board_category' ca.id %}">
+                          <h1>{{ca.title}}</h1>
+                        </a>  
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          {% for ca in categoryall %}
+          <a class="btn btn-light btn-sm mb-1" href="{% url 'board:board_category' ca.id %}">
+            {% if category.id == ca.id %}  
+            <span class="nav-link-text" data-i18n="nav.board"><b>{{ca.title}}</b></span>
+            {% else %}
+            <span class="nav-link-text" data-i18n="nav.board">{{ca.title}}</span>
+            {% endif %}
+          </a>
+          {% endfor %}
+        <!-- </div>
+      </div>/.card -->
+    </aside>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="panel-1" class="panel">
+    <div class="panel-hdr">
+        <h2>
+            <a class="h2" href="">
+                 인기글들</a>&emsp;
+            <span class="font-italic h5">인기글을 선택하세요.</span>
+        </h2>
+        <div class="panel-toolbar">
+            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+        </div>
+    </div> 
+    <div class="panel-container show">
+      <div class="panel-content">
+      <!-- <div class="card mb-4">
+        <div class="card-body"> -->
+          <h3>Popular stories</h3>
+          {% for pp in popular_post_list %}
+          <div class="block-21 mb-4 d-flex">
+            <a href="{% url 'board:detail' pp.id %}" class="d-inline-block">
+              {% if pp.head_image %}
+              <img src="{{ pp.head_image.url }}" width="100px" height="100px" class="card-img-top" alt="...">
+              {% else %}
+              <img src="https://picsum.photos/id/{{pp.id}}/100/100" class="card-img-top" alt="...">
+              {% endif %}
+              
+            </a>
+            <div class="text text-right">
+              <h4 class="heading"><a href="{% url 'board:detail' pp.id %}">{{ pp.subject | striptags | truncatechars:12 }}</a></h4>
+              <div class="meta">
+                <div> {{ pp.create_date|date:"y-m-d" }} by {{ pp.author.username }} </div>
+                
+                <div><h6 class="my-3 py-2 badge badge-warning rounded fal fa-comment-lines">{{ pp.comment_set.count }} 개</h6></div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        <!-- </div>
+      </div>/.card -->
+      </div>
+    </div>
+  </div>    
+    
+</div>

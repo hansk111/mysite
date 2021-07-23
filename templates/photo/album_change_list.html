@@ -1,0 +1,52 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block content %}
+{% load socialaccount %}
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
+        <li class="breadcrumb-item">Main</li>
+        <li class="breadcrumb-item active">Introduction</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='fal fa-info-circle'></i> 소개
+            <small>
+                앨범 추가
+            </small>
+        </h1>
+    </div>
+    <div class="fs-lg fw-300 p-5 bg-white border-faded rounded mb-g">
+
+        <h1>Album Change - {{user}}</h1>
+
+        <table class="table table-striped table-bordered table-condensed">
+
+            <thead>
+            <tr class="table-success">
+                <th>Name</th>
+                <th>Description</th>
+                <th>Owner</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for item in object_list %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.owner }}</td>
+                <td><a href="{% url 'photo:album_update' item.id %}">Update</a></td>
+                <td><a href="{% url 'photo:album_delete' item.id %}">Delete</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+{% endblock %}
+

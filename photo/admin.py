@@ -1,0 +1,23 @@
+from django.contrib import admin
+
+from photo.models import Album, Photo, Videos
+
+
+class PhotoInline(admin.StackedInline):
+    model = Photo
+    extra = 2
+
+
+
+class AlbumAdmin(admin.ModelAdmin):
+    inlines = (PhotoInline,)
+    list_display = ('id', 'name', 'description')
+
+
+
+class PhotoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'upload_dt')
+
+admin.site.register(Album, AlbumAdmin)
+admin.site.register(Photo, PhotoAdmin)
+admin.site.register(Videos)

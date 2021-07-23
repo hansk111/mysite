@@ -1,0 +1,125 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block content %}
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">SmartAdmin</a></li>
+        <li class="breadcrumb-item">Application Intel</li>
+        <li class="breadcrumb-item active">게시글상세, 댓글 달기</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='fal fa-info-circle'></i> 게시글 상세 보기, 댓글 달기
+            <small>
+                게시물을 보고 댓글을 달아 주세요.
+            </small>
+        </h1>
+    </div>
+    <div class="fs-lg fw-300 p-5 bg-white border-faded rounded mb-g">
+<!--  필요없을수 있음. 사용자와 글쓴이가 다르면 버턴이 활성화 되지 않음. -->
+        {% if messages %}
+        <div class="alert alert-danger my-3" role="alert">
+        {% for message in messages %}
+            <strong>{{ message.tags }}</strong>
+            <ul><li>{{ message.message }}</li></ul>
+        {% endfor %}
+        </div>
+        {% endif %}    
+<!--  필요없을수 있음. -->
+    <div class="container my-3">
+        <h2 class="border-bottom py-2">{{ question.subject }}</h2>
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="card-text" style="white-space: pre-line;">{{ question.content|safe }}</div>
+                <div class="d-flex justify-content-end">
+                    
+                    <!-- <div class="d-inline-flex flex-column"> -->
+                        {% if question.modify_date %}
+                        <div class="badge badge-light p-2">
+                        수정 : {{ question.modify_date }}
+                        </div>
+                        {% endif %}                    
+                        <div class="badge badge-light p-2">
+                        생성: {{ question.create_date }}
+                        </div>
+                    <!-- </div> -->
+                </div>
+                {% if request.user == question.author %}
+                <div class="my-3">
+                    <a href="{% url 'board:question_modify' question.id  %}" 
+                       class="btn btn-outline-success btn-sm">수정</a>
+                    <a href="#" class="btn btn-outline-danger btn-sm"
+                        data-uri="{% url 'board:question_delete' question.id  %}">삭제</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <h5 class="border-bottom my-3 py-2">{{question.answer_set.count}}개의 답변이 있습니다.</h5>
+        {% for answer in question.answer_set.all %}
+        <div class="card my-3">
+            <div class="card-body bg-fusion-50 rounded-plus">
+                <div class="card-text" style="white-space: pre-line;">{{ answer.content }}</div>
+                <div class="d-flex justify-content-end">
+                   
+                    <!-- <div class="d-inline-flex flex-column"> -->
+                        {% if answer.modify_date %}
+                        <div class="badge badge-light p-2">
+                        수정 : {{ answer.modify_date }}
+                        </div>
+                        {% endif %}                    
+                        <div class="badge badge-light p-2">
+                        생성: {{ answer.create_date }}
+                        </div>
+                    <!-- </div> -->
+                </div>
+                {% if request.user == answer.author %}
+                <div class="my-3">
+                    <a href="{% url 'board:answer_modify' answer.id  %}" 
+                       class="btn btn-outline-success btn-sm">수정</a>
+                    <a href="#" class="delete btn btn-outline-danger btn-sm" 
+                    data-uri="{% url 'board:answer_delete' answer.id %}">삭제</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        {% if user.is_authenticated %}
+        <form action="{% url 'board:answer_create' question.id %}" method="post" class="my-3">
+            {% csrf_token %}
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+            {% if field.errors %}
+            <strong>{{ field.label }}</strong>
+            {{ field.errors }}
+            {% endif %}
+            {% endfor %}
+            </div>
+            {% endif %}
+            <div class="form-group">
+                <textarea name="content" id="content" class="form-control" rows="5"></textarea>
+            </div>
+            <!-- <input type="submit" value="뎃글달기" class="btn btn-outline-success btn-sm"> -->
+            <button type="submit" class="btn btn-primary">댓글달기</button>
+        </form>
+        {% endif %}
+    </div>
+
+    </div>
+</main>
+
+    
+{% endblock %}
+{% block script %}
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $(".delete").on('click', function() {
+            if(confirm("정말로 삭제하시겠습니까?")) {
+                location.href = $(this).data('uri');
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block header %}
+<link rel="stylesheet" media="screen, print" href="{% static 'css/miscellaneous/lightgallery/lightgallery.bundle.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
+        <li class="breadcrumb-item">Main</li>
+        <li class="breadcrumb-item active">Introduction</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='fal fa-info-circle'></i> 소개
+            <small>
+                이 사이트의 간단한 소개입니다.
+            </small>
+        </h1>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        <a class="h2" href="">
+                            전체 앨범 사진들</a>&emsp;
+                        <span class="font-italic h5">그림을 클릭하세요.</span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div>
+                            {% for video in videos %}
+                            <div style="display:none;" id="{{video.id}}">
+                                <video class="lg-video-object lg-html5" controls="" preload="none">
+                                  <source src="{{video.video.url}}" type="video/mp4">
+                                  Your browser does not support HTML5 video.
+                                </video>
+                            </div>
+                            {% endfor %}  
+                            <div id="lightgallery">
+                                {% for video in videos %} 
+                                <a href="" data-html="#{{video.id}}" >
+                                    <img src="{{ video.video_thumbnail.url }}">
+                                </a>
+                                
+                                {% endfor %} 
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>           
+
+</main>
+
+
+
+
+
+{% endblock %}
+
+
+{% block script %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.11/js/lightgallery-all.min.js"></script>
+<script>
+    $(document).ready(function() {
+    $('#lightgallery').lightGallery();
+    });
+</script>
+<script>
+
+    $(document).ready(function()
+    {
+        var $initScope = $('#js-lightgallery');
+        if ($initScope.length)
+        {
+            $initScope.justifiedGallery(
+            {
+                border: -1,
+                rowHeight: 150,
+                margins: 8,
+                waitThumbnailsLoad: true,
+                randomize: false,
+            }).on('jg.complete', function()
+            {
+                $initScope.lightGallery(
+                {
+                    thumbnail: true,
+                    animateThumb: true,
+                    showThumbByDefault: true,
+                });
+            });
+        };
+        $initScope.on('onAfterOpen.lg', function(event)
+        {
+            $('body').addClass("overflow-hidden");
+        });
+        $initScope.on('onCloseAfter.lg', function(event)
+        {
+            $('body').removeClass("overflow-hidden");
+        });
+    });
+
+</script> 
+{% endblock %}

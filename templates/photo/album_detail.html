@@ -1,0 +1,71 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
+        <li class="breadcrumb-item">Main</li>
+        <li class="breadcrumb-item active">Introduction</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='fal fa-info-circle'></i> 소개
+            <small>
+                이 사이트의 간단한 소개입니다.
+            </small>
+        </h1>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        <a class="h2" href="">
+                            {{ object.name }}</a>&emsp;
+                        <span class="font-italic h5">{{ object.description }}</span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div id="js-lightgallery" >
+                            <div class="card-group">
+                                {% for photo in object.photo_set.all %} 
+                                <div class="card">
+                                    <div class="w-100 bg-fusion-50 rounded-top border-top-right-radius-0" style="padding:10px 0 10px;"></div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ photo.title }}</h5>
+                                        <a class="jg-entry entry-visible" href="{{ photo.get_absolute_url }}">
+                                            <img class="img-responsive" src="{{ photo.image.thumb_url }}" alt="image"></a>
+                                        <p class="card-text">{{ photo.upload_dt|date:"Y-m-d" }}</p>
+                                        <small class="text-muted">Last updated 3 mins ago</small>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+
+</main>
+
+
+
+
+
+
+{% endblock %}
+

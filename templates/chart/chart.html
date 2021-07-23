@@ -1,0 +1,1219 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block content %}
+{% load socialaccount %}
+<link rel="stylesheet" media="screen, print" href="{% static 'css/statistics/chartjs/chartjs.css' %}">
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
+        <li class="breadcrumb-item">산업용장비</li>
+       
+        <li class="breadcrumb-item active">KPI</li>
+  
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class="fal fa-analytics"></i> KPI(6월 기준)
+            <small>
+                <a href="#han1">매출액/ </a>
+                <a href="#han2">AM매출액/ </a>
+                <a href="#han3">즉대응률/ </a>
+                <a href="#han4">재고금액/ </a>
+                <a href="#han5">월별매출액/ </a>
+                <a href="#han6">무상자재비용</a>         
+            </small>
+        </h1>
+    </div>
+    <div class="row">
+        
+        <div class="col-sm-6 col-xl-3">
+            <div class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                        {% for sale in sales %}
+                            {% if sale.year == 2021 %}
+                                {{ sale.sales}}/3550억원
+                            {% endif %}
+                        {% endfor %}
+                        <small class="m-0 l-h-n">2021년 매출액</small>
+                    </h3>
+                </div>
+                <i class="fal fa-bullseye-arrow position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                        {% for sale in amsales %}
+                            {% if sale.year == 2021 %}
+                                {{ sale.sales}}/270억원
+                            {% endif %}
+                        {% endfor %}
+                        <small class="m-0 l-h-n">2021년 AM 매출액</small>
+                    </h3>
+                </div>
+                <i class="fal fa-galaxy position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" style="font-size: 6rem;"></i>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                        {% for sale in sales %}
+                            {% if sale.year == 2021 %}
+                                {{ sale.stocks}}/30억원
+                            {% endif %}
+                        {% endfor %}
+                        <small class="m-0 l-h-n">2021년 서비스자재 재고금액</small>
+                    </h3>
+                </div>
+                <i class="fal fa-lightbulb position-absolute pos-right pos-bottom opacity-15 mb-n5 mr-n6" style="font-size: 8rem;"></i>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                        
+                    {% for sale in sales %}
+                        {% if sale.year == 2021 %}
+                            {{ sale.korea_free_material }}/{{ sale.global_free_material }}/{{ sale.free_retrofit }}
+                        {% endif %}
+                    {% endfor %} 
+                        <small class="m-0 l-h-n">2021년 무상자재 비용(국내/해외/리트로핏)</small>
+                    </h3>
+                </div>
+                <i class="fal fa-bullseye position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n4" style="font-size: 6rem;"></i>
+            </div>
+        </div>
+        
+        <div class="col-xl-12">
+            <div class="row">
+                <div class="col-xl-6">
+                    <div id="panel-1" class="panel">
+                        <div class="panel-hdr">
+                            <h2>
+                               산업용장비 <span class="fw-300" id = "han1"><i>매출액</i></span>
+                            </h2>
+                            <div class="panel-toolbar">
+                                <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                                <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                                <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                            </div>
+                        </div>
+                        <div class="panel-container show">
+                            <div class="panel-content">
+                                
+                                <div class="panel-tag">
+                                   년도별 매출액 추이
+                                </div>
+                                <div id="barlineCombine0">
+                                    <canvas style="width:100%; height:300px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div id="panel-2" class="panel">
+                        <div class="panel-hdr">
+                            <h2>
+                                AM <span class="fw-300" id = "han2"><i>매출액</i></span>
+                            </h2>
+                            <div class="panel-toolbar">
+                                <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                                <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                                <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                            </div>
+                        </div>
+                        <div class="panel-container show">
+                            <div class="panel-content">
+                                <div class="panel-tag">
+                                    년도별 AM매츌액 추이
+                                </div>
+                                <div id="barChart">
+                                    <canvas style="width:100%; height:300px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-12">
+            <div class="row">
+                <div class="col-xl-6">
+                    <div id="panel-3" class="panel">
+                        <div class="panel-hdr">
+                            <h2>
+                               서비스 자재 <span class="fw-300" id = "han3"><i>즉 대응률</i></span>
+                            </h2>
+                            <div class="input-group col-3">
+                                <select class="form-control shadow-inset-2 ye">
+                                    <option class="dropdown-item input-group-text" value="all" {% if ye == 'all' %}selected{% endif %}>all</option>
+                                    <option class="dropdown-item input-group-text" value="2020" {% if ye == '2020' %}selected{% endif %}>2020</option>
+                                    <option class="dropdown-item input-group-text" value="2021" {% if ye == '2021' %}selected{% endif %}>2021</option>
+                                </select>
+                            </div>
+                            <div class="panel-toolbar">
+                                <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                                <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                                <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                            </div>
+                        </div>
+                        <div class="panel-container show">
+                            <div class="panel-content">
+                                {% if ye == 'all' %}                            
+                                <div class="panel-tag">
+                                    
+                                  월별 서비스 자재 즉 대응률
+                                </div>
+                                {% elif ye == '2020' %}
+                                <div class="panel-tag">
+                                   
+                                    2020 월별 서비스 자재 즉 대응률
+                                </div>
+                                {% else %}
+                                <div class="panel-tag">
+                                   
+                                    2021 월별 서비스 자재 즉 대응률
+                                </div>
+                                {% endif %}
+                                <div id="barlineCombine1">
+                                    <canvas style="width:100%; height:300px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div id="panel-4" class="panel">
+                        <div class="panel-hdr">
+                            <h2>
+                                서비스 자재 <span class="fw-300" id = "han4"><i>재고금액(억원)</i></span>
+                            </h2>
+                            <div class="panel-toolbar">
+                                <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                                <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                                <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                            </div>
+                        </div>
+                        <div class="panel-container show">
+                            <div class="panel-content">
+                                <div class="panel-tag">
+                                    년도별 서비스 대상 장비 대비 재고 금액
+                                </div>
+                                <div id="barlineCombine2">
+                                    <canvas style="width:100%; height:300px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-12">
+            <div class="row">
+                <div class="col-xl-6">
+                    <div id="panel-5" class="panel">
+                        <div class="panel-hdr">
+                            
+                            <h2>
+                               산업용 장비 <span class="fw-300" id="han5"><i>월별 매출액</i></span>
+                            </h2>
+                            <div class="input-group col-3">
+                                <select class="form-control shadow-inset-2 ye2">
+                                    <option class="dropdown-item input-group-text" value="all" {% if ye2 == 'all' %}selected{% endif %}>all</option>
+                                    <option class="dropdown-item input-group-text" value="2020" {% if ye2 == '2020' %}selected{% endif %}>2020</option>
+                                    <option class="dropdown-item input-group-text" value="2021" {% if ye2 == '2021' %}selected{% endif %}>2021</option>
+                                </select>
+                            </div>
+                            <div class="panel-toolbar">
+                                <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                                <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                                <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                            </div>
+                        </div>
+                        <div class="panel-container show">
+                            <div class="panel-content">
+                                                               
+                                <div class="panel-tag">
+                                  월별 매출액
+                                </div>
+                                <div id="barlineCombine3">
+                                    <canvas style="width:100%; height:300px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div id="panel-6" class="panel">
+                        <div class="panel-hdr">
+                            <h2>
+                                서비스 자재 <span class="fw-300" id = "han6"><i>무상자재비용(억원)</i></span>
+                            </h2>
+                            <div class="panel-toolbar">
+                                <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                                <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                                <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                            </div>
+                        </div>
+                        <div class="panel-container show">
+                            <div class="panel-content">
+                                <div class="panel-tag">
+                                    년도별 무상자재 비용
+                                </div>
+                                <div id="barlineCombine4">
+                                    <canvas style="width:100%; height:300px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <form id="searchForm" method="post" action="{% url 'chart:chart' %}">
+            {% csrf_token %}
+            <input type="hidden" id="ye" name="ye" value="{{ ye }}">
+            <input type="hidden" id="ye2" name="ye2" value="{{ ye2 }}">
+        </form>
+        
+    </div>
+</main>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/statistics/chartjs/chartjs.bundle.js' %}"></script>
+
+
+<script>
+
+/* bar & line combine0 */
+var barlineCombine0 = function()
+    {
+        var barlineCombineData0 = {
+            labels: [
+                    {% for sale in sales %}
+                        '{{ sale.year }}'
+                        {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                    {% endfor %} 
+            ],
+            datasets: [
+            {
+                
+                type: 'line',
+                label: '매출액(억원)',
+                borderColor: color.danger._300,
+                pointBackgroundColor: color.danger._500,
+                pointBorderColor: color.danger._500,
+                pointBorderWidth: 1,
+                borderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 5,
+                fill: false,
+                data: [
+                            {% for sale in sales %}
+                                '{{ sale.sales }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ]
+            },
+            {
+                
+                type: 'bar',
+                label: '상반기매출액(억원)',
+                backgroundColor: color.primary._300,
+                borderColor: color.primary._500,
+                data: [
+                            {% for sale in sales %}
+                                '{{ sale.before6_sales }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ],
+                borderWidth: 1
+            },
+            {
+                
+                type: 'bar',
+                label: '하반기매출액(억원)',
+                backgroundColor: color.success._300,
+                borderColor: color.success._500,
+                data: [
+                            {% for sale in sales %}
+                                '{{ sale.after6_sales }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ],
+                borderWidth: 1
+            },
+            ]
+
+        };
+        var config = {
+            type: 'bar',
+            data: barlineCombineData0,
+            options:
+            {
+                responsive: true,
+                legend:
+                {
+                    position: 'top',
+                },
+                title:
+                {
+                    display: true,
+                    text: '년도별 매출액 추이'
+                },
+                scales:
+                {
+                    xAxes: [
+                    {
+                        stacked: true,
+                        display: true,
+                        scaleLabel:
+                        {
+                            display: true,
+                            labelString: '년도'
+                        },
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks:
+                        {
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    }],
+                    yAxes: [
+                    {
+                        stacked: true,
+                        display: true,
+                        scaleLabel:
+                        {
+                            display: false,
+                            labelString: '매출액(억원)'
+                        },
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks:
+                        {
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    },
+                   
+                ]
+                }
+            }
+        }
+        new Chart($("#barlineCombine0 > canvas").get(0).getContext("2d"), config);
+    }
+    /* bar & line combine0 -- end */
+
+
+
+
+
+
+
+
+    /* bar chart */
+    var barChart = function()
+    {
+        var barChartData = {
+            labels: [
+                    {% for sale in amsales %}
+                        '{{ sale.year }}'
+                        {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                    {% endfor %} 
+            ],
+            datasets: [
+            {
+                label: "계획",
+                backgroundColor: color.primary._300,
+                borderColor: color.primary._500,
+                borderWidth: 1,
+                data: [
+                            {% for sale in amsales %}
+                                '{{ sale.sales_plan }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ]
+            },
+            {
+                label: "실적",
+                backgroundColor: color.success._300,
+                borderColor: color.success._500,
+                borderWidth: 1,
+                data: [
+                            {% for sale in amsales %}
+                                '{{ sale.sales }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ]
+            },
+            ]
+
+        };
+        var config = {
+            type: 'bar',
+            data: barChartData,
+            options:
+            {
+                responsive: true,
+                legend:
+                {
+                    position: 'top',
+                },
+                title:
+                {
+                    display: true,
+                    text: 'AM 매출액 추이'
+                },
+                scales:
+                {
+                    xAxes: [
+                    {
+                        display: true,
+                        scaleLabel:
+                        {
+                            display: true,
+                            labelString: '년도'
+                        },
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks:
+                        {
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    }],
+                    yAxes: [
+                    {
+                        display: true,
+                        scaleLabel:
+                        {
+                            display: false,
+                            labelString: '매출액(억원)'
+                        },
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks:
+                        {
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    }]
+                }
+            }
+        }
+        new Chart($("#barChart > canvas").get(0).getContext("2d"), config);
+    }
+    /* bar chart -- end */
+
+/* bar & line combine1 */
+    var barlineCombine1 = function()
+    {
+        var barlineCombineData1 = {
+            labels: [
+                    {% for ma in material %}
+                        '{{ ma.month }}'
+                        {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                    {% endfor %} 
+            ],
+            datasets: [
+            {
+                
+                type: 'line',
+                label: '즉 대응률',
+                borderColor: color.danger._300,
+                pointBackgroundColor: color.danger._500,
+                pointBorderColor: color.danger._500,
+                pointBorderWidth: 1,
+                borderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 5,
+                fill: false,
+                data: [
+                            {% for ma in material %}
+                                '{{ ma.global_value }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ]
+            },
+            {
+                
+                type: 'line',
+                label: '목표',
+                borderColor: color.info._500,
+                pointBackgroundColor: color.info._300,
+                pointBorderColor: color.info._500,
+                pointBorderWidth: 1,
+                borderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 5,
+                fill: false,
+                data: [
+                            {% for ma in material %}
+                                '{{ ma.goal_value }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                           
+                ]
+            },
+
+            {
+                
+                type: 'bar',
+                label: '중국',
+                backgroundColor: color.primary._300,
+                borderColor: color.primary._500,
+                data: [
+                            {% for ma in material %}
+                                '{{ ma.china_value }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ],
+                borderWidth: 1
+            },
+            {
+                
+                type: 'bar',
+                label: '한국',
+                backgroundColor: color.success._300,
+                borderColor: color.success._500,
+                data: [
+                            {% for ma in material %}
+                                '{{ ma.korea_value }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ],
+                borderWidth: 1
+            },
+            ]
+
+        };
+        var config = {
+            type: 'bar',
+            data: barlineCombineData1,
+            options:
+            {
+                responsive: true,
+                legend:
+                {
+                    position: 'top',
+                },
+                title:
+                {
+                    display: true,
+                    text: '자재즉 대응률'
+                },
+                scales:
+                {
+                    xAxes: [
+                    {
+                        display: true,
+                        scaleLabel:
+                        {
+                            display: true,
+                            labelString: '월'
+                        },
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks:
+                        {
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    }],
+                    yAxes: [
+                    {
+                       
+                        display: true,
+                        scaleLabel:
+                        {
+                            display: false,
+                            labelString: 'Profit margin (approx)'
+                        },
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks: {
+                            max: 1.0,
+                            min: 0.6,
+                            fontSize: 11,
+                            beginAtZero: false,    
+                        }
+                        
+                    },
+                    
+                ]
+                }
+            }
+        }
+        new Chart($("#barlineCombine1 > canvas").get(0).getContext("2d"), config);
+    }
+    /* bar & line combine1 -- end */
+
+    /* grid color */
+    var gridColor = function()
+    {
+        var config = {
+            type: 'line',
+            data:
+            {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [
+                {
+                    data: [10, 24, 20, 25, 35, 50],
+                    backgroundColor: 'rgba(0,0,0, 0.07)',
+                    borderColor: color.fusion._300,
+                    borderWidth: 1,
+                    fill: true
+                },
+                {
+                    data: [20, 30, 28, 33, 45, 65],
+                    backgroundColor: 'rgba(0,0,0, 0.03)',
+                    borderColor: color.fusion._100,
+                    borderWidth: 1,
+                    fill: true
+                }]
+            },
+            options:
+            {
+                legend:
+                {
+                    display: false,
+                    labels:
+                    {
+                        display: false
+                    }
+                },
+                scales:
+                {
+                    yAxes: [
+                    {
+                        gridLines:
+                        {
+                            drawBorder: false,
+                            color: ['', color.danger._500, color.success._500]
+                        },
+                        ticks:
+                        {
+                            beginAtZero: true,
+                            fontSize: 11,
+                            max: 80
+                        }
+                    }],
+                    xAxes: [
+                    {
+                        ticks:
+                        {
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    }]
+                }
+            }
+        }
+        new Chart($("#gridColor > canvas").get(0).getContext("2d"), config);
+    }
+    /* grid color -- end */
+
+    /* bar & line combine2 */
+    var barlineCombine2 = function()
+    {
+        var barlineCombineData2 = {
+            labels: [
+                    {% for sale in sales %}
+                        '{{ sale.year }}'
+                        {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                    {% endfor %} 
+            ],
+            datasets: [
+            {
+                yAxisID: 'B',
+                type: 'line',
+                label: '재고금액(억원)',
+                borderColor: color.danger._300,
+                pointBackgroundColor: color.danger._500,
+                pointBorderColor: color.danger._500,
+                pointBorderWidth: 1,
+                borderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 5,
+                fill: false,
+                data: [
+                            {% for sale in sales %}
+                                '{{ sale.stocks }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ]
+            },
+            {
+                yAxisID: 'A',
+                type: 'bar',
+                label: '장비대수',
+                backgroundColor: color.primary._300,
+                borderColor: color.primary._500,
+                data: [
+                            {% for sale in sales %}
+                                '{{ sale.machines }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ],
+                borderWidth: 1
+            },
+            ]
+
+        };
+        var config = {
+            type: 'bar',
+            data: barlineCombineData2,
+            options:
+            {
+                responsive: true,
+                legend:
+                {
+                    position: 'top',
+                },
+                title:
+                {
+                    display: true,
+                    text: '년도별 서비스 자재 재고 금액'
+                },
+                scales:
+                {
+                    xAxes: [
+                    {
+                        display: true,
+                        scaleLabel:
+                        {
+                            display: true,
+                            labelString: '년도'
+                        },
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks:
+                        {
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    }],
+                    yAxes: [
+                    {
+                        id: 'A',
+                        display: true,
+                        scaleLabel:
+                        {
+                            display: false,
+                            labelString: 'Profit margin (approx)'
+                        },
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks:
+                        {
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    },
+                    {
+                        id: 'B',
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        ticks: {
+                            max: 40.0,
+                            min: 0}
+                    }
+                ]
+                }
+            }
+        }
+        new Chart($("#barlineCombine2 > canvas").get(0).getContext("2d"), config);
+    }
+    /* bar & line combine2 -- end */
+
+
+
+/* bar & line combine3 */
+var barlineCombine3 = function()
+    {
+        var barlineCombineData3= {
+            labels: [
+                    {% for ma in material2 %}
+                        '{{ ma.month }}'
+                        {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                    {% endfor %} 
+            ],
+            datasets: [
+            
+            
+
+            {
+                
+                type: 'bar',
+                label: '매출계획',
+                backgroundColor: color.primary._300,
+                borderColor: color.primary._500,
+                data: [
+                            {% for ma in material2 %}
+                                '{{ ma.sales_month_plan }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ],
+                borderWidth: 1
+            },
+            {
+                
+                type: 'bar',
+                label: '매출실적',
+                backgroundColor: color.success._300,
+                borderColor: color.success._500,
+                data: [
+                            {% for ma in material2 %}
+                                '{{ ma.sales_month }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ],
+                borderWidth: 1
+            },
+
+            {
+                
+                type: 'bar',
+                label: 'AM매출계획',
+                backgroundColor: color.primary._300,
+                borderColor: color.primary._500,
+                data: [
+                            {% for ma in material2 %}
+                                '{{ ma.am_sales_month_plan }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ],
+                borderWidth: 1
+            },
+            {
+                
+                type: 'bar',
+                label: 'AM매출실적',
+                backgroundColor: color.success._300,
+                borderColor: color.success._500,
+                data: [
+                            {% for ma in material2 %}
+                                '{{ ma.am_sales_month }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ],
+                borderWidth: 1
+            },
+            ]
+
+        };
+        var config = {
+            type: 'bar',
+            data: barlineCombineData3,
+            options:
+            {
+                responsive: true,
+                legend:
+                {
+                    position: 'top',
+                },
+                title:
+                {
+                    display: true,
+                    text: '매출 계획 대비 실적'
+                },
+                scales:
+                {
+                    xAxes: [
+                    {
+                        display: true,
+                        scaleLabel:
+                        {
+                            display: true,
+                            labelString: '월'
+                        },
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks:
+                        {
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    }],
+                    yAxes: [
+                    {
+                       
+                        display: true,
+                        scaleLabel:
+                        {
+                            display: false,
+                            labelString: 'Profit margin (approx)'
+                        },
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks: {
+                            
+                            fontSize: 11,
+                            beginAtZero: false,    
+                        }
+                        
+                    },
+                    
+                ]
+                }
+            }
+        }
+        new Chart($("#barlineCombine3 > canvas").get(0).getContext("2d"), config);
+    }
+    /* bar & line combine3 -- end */
+
+    /* bar & line combine4 */
+    var barlineCombine4 = function()
+    {
+        var barlineCombineData4 = {
+            labels: [
+                    {% for sale in sales %}
+                        '{{ sale.year }}'
+                        {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                    {% endfor %} 
+            ],
+            datasets: [
+            {
+                yAxisID: 'B',
+                type: 'line',
+                label: '무상자재비용(억원)',
+                borderColor: color.danger._300,
+                pointBackgroundColor: color.danger._500,
+                pointBorderColor: color.danger._500,
+                pointBorderWidth: 1,
+                borderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 5,
+                fill: false,
+                data: [
+                            {% for free in free_of_charge %}
+                                '{{ free }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ]
+            },
+            {
+                yAxisID: 'A',
+                type: 'bar',
+                label: '국내',
+                backgroundColor: color.primary._300,
+                borderColor: color.primary._500,
+                data: [
+                            {% for sale in sales %}
+                                '{{ sale.korea_free_material }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ],
+                borderWidth: 1
+            },
+            {
+                yAxisID: 'A',
+                type: 'bar',
+                label: '해외',
+                backgroundColor: color.success._300,
+                borderColor: color.success._500,
+                data: [
+                            {% for sale in sales %}
+                                '{{ sale.global_free_material }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ],
+                borderWidth: 1
+            },
+            {
+                yAxisID: 'A',
+                type: 'bar',
+                label: '리트로핏',
+                backgroundColor: color.info._300,
+                borderColor: color.info._500,
+                data: [
+                            {% for sale in sales %}
+                                '{{ sale.free_retrofit }}'
+                                {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                            {% endfor %}
+                ],
+                borderWidth: 1
+            },
+            ]
+
+        };
+        var config = {
+            type: 'bar',
+            data: barlineCombineData4,
+            options:
+            {
+                responsive: true,
+                legend:
+                {
+                    position: 'top',
+                },
+                title:
+                {
+                    display: true,
+                    text: '년도별 무상자재 비용 추이'
+                },
+                scales:
+                {
+                    xAxes: [
+                    {
+                        display: true,
+                        scaleLabel:
+                        {
+                            display: true,
+                            labelString: '년도'
+                        },
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks:
+                        {
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    }],
+                    yAxes: [
+                    {
+                        id: 'A',
+                        display: true,
+                        scaleLabel:
+                        {
+                            display: false,
+                            labelString: 'Profit margin (approx)'
+                        },
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks:
+                        {
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    },
+                    {
+                        id: 'B',
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        ticks: {
+                            max: 20.0,
+                            min: 0}
+                    }
+                ]
+                }
+            }
+        }
+        new Chart($("#barlineCombine4 > canvas").get(0).getContext("2d"), config);
+    }
+    /* bar & line combine4 -- end */  
+
+    
+
+    /* initialize all charts */
+    $(document).ready(function()
+    {
+       
+       
+       
+        barChart();
+        barlineCombine0();        
+        barlineCombine1();
+        barlineCombine2();
+        barlineCombine3();
+        barlineCombine4();
+       
+    });
+
+</script>
+
+
+<script type='text/javascript'>
+$(document).ready(function(){
+    $(".page-link").on('click', function() {
+        $("#page").val($(this).data("page"));
+        $("#searchForm").submit();
+    });
+
+    $("#btn_search").on('click', function() {
+        $("#kw").val($(".kw").val());
+        $("#page").val(1);  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
+        $("#searchForm").submit();
+    });
+
+    $(".so").on('change', function() {
+        $("#so").val($(this).val());
+        $("#page").val(1);
+        $("#searchForm").submit();
+    });
+
+    $(".ye").on('change', function() {
+            $("#ye").val($(this).val());
+            
+            $("#searchForm").submit();
+    });
+    
+    $("#han").on('change', function() {
+        var offset = $('#han').offset();
+        $('html').animate({scrollTop : offset.top}, 400);
+            
+    });
+
+    $(".ye2").on('change', function() {
+            $("#ye2").val($(this).val());
+    
+            $("#searchForm").submit();
+           
+    });
+  
+
+});
+</script>
+
+{% endblock %}
+

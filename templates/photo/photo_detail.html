@@ -1,0 +1,67 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
+        <li class="breadcrumb-item">Main</li>
+        <li class="breadcrumb-item active">Introduction</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='fal fa-info-circle'></i> 소개
+            <small>
+                이 사이트의 간단한 소개입니다.
+            </small>
+        </h1>
+    </div>
+    <div class="fs-lg fw-300 p-5 bg-white border-faded rounded mb-g">
+
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div id="panel-1" class="panel">
+                    <div class="panel-hdr">
+                        <h2>
+                            <a class="h2" href="">
+                                {{ object.name }}</a>&emsp;
+                            <span class="font-italic h5">{{ object.description }}</span>
+                        </h2>
+                        <div class="panel-toolbar">
+                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                        </div>
+                    </div>
+
+                    <h2 class="mt-5">{{ object.title }}</h2> 
+                    
+                    <div class="row"> 
+                        <div class="col-md-9">
+                            <a href="{{ object.image.url }}">
+                                <img src="{{ object.image.url }}" style="width: 100%;">
+                            </a>
+                        </div>
+                    
+                        <ul class="col-md-3 mt-3">
+                            <li class="h5">사진 설명</li>
+                                {% if object.description %}<p>{{ object.description|linebreaks }}</p>
+                                {% else %}<p>(blank)</p>{% endif %}
+                            <li class="h5">Date Uploaded</li>
+                                <p class="font-italic">{{ object.upload_dt }}</p>
+                            <li class="h5">Album Name</li>
+                                <p class="font-italic">
+                                    <a href="{% url 'photo:album_detail' object.album.id %}"> {{ object.album.name }}</a>
+                                </p>
+                        </ul>
+                    </div>
+                </div>
+            </div> 
+        </div>   
+    </div>
+</main>       
+{% endblock %}
+

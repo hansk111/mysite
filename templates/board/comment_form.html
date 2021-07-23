@@ -1,0 +1,40 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block content %}
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">SmartAdmin</a></li>
+        <li class="breadcrumb-item">Application Intel</li>
+        <li class="breadcrumb-item">게시판</li>
+        <li class="breadcrumb-item active">게시글 쓰기</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='fal fa-info-circle'></i> 게시글 쓰기
+            <small>
+                게시글을 써 주세요
+            </small>
+        </h1>
+    </div>
+    <div class="fs-lg fw-300 p-5 bg-white border-faded rounded mb-g">
+
+    <div class="container">
+        <div class="container my-3">
+            <form method="post" class="post-form">
+                {% csrf_token %}
+                {% include "form_errors.html" %}
+                <div class="form-group">
+                    <label for="content">답변내용</label>
+                    <textarea class="form-control" name="content" id="content" 
+                              rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">저장하기</button>
+            </form>
+        </div>
+        
+
+    </div>
+</main>
+{% endblock %}
