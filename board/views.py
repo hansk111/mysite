@@ -154,9 +154,9 @@ def post_create(request):
 
     ca = request.POST.get('category', '') 
    
-    if ca == 'category1':
+    if ca == '골프':
         category = Category.objects.get(pk=1)
-    elif ca == 'category2':
+    elif ca == '식물':
         category = Category.objects.get(pk=2)
     else:
         category = Category.objects.get(pk=3)
