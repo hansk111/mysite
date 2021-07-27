@@ -32,7 +32,7 @@ DEBUG = True
 #     ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
 # else:
 #     ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['3.37.138.172']
+ALLOWED_HOSTS = ['3.38.71.222']
 
 
 # Application definition
