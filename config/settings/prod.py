@@ -29,7 +29,7 @@ DATABASES = {
       'default': {
           'ENGINE': 'django.db.backends.postgresql_psycopg2',
           'NAME': 'smarthandb',
-          'HOST': '/opt/ubuntu/postgresql',
+          'HOST': 'localhost',
           'PORT': '5432',
           'USER': 'smarthan',
           'PASSWORD': 'samrthan'
