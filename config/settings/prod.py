@@ -5,16 +5,16 @@ STATIC_ROOT = BASE_DIR / 'static/'
 STATICFILES_DIRS = []
 DEBUG = False
 
-DATABASES = {
-      'default': {
-          'ENGINE': 'django.db.backends.mysql',
-          'NAME': 'smarthandb',
-          'HOST': 'localhost',
-          'PORT': '3306',
-          'USER': 'root',
-          'PASSWORD': 'admin'
-      }
-  }
+# DATABASES = {
+#       'default': {
+#           'ENGINE': 'django.db.backends.mysql',
+#           'NAME': 'smarthandb',
+#           'HOST': 'localhost',
+#           'PORT': '3306',
+#           'USER': 'root',
+#           'PASSWORD': 'admin'
+#       }
+#   }
 
 
 
@@ -24,3 +24,14 @@ DATABASES = {
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.postgresql_psycopg2',
+          'NAME': 'smarthandb',
+          'HOST': '/opt/ubuntu/postgresql',
+          'PORT': '5432',
+          'USER': 'smarthan',
+          'PASSWORD': 'samrthan'
+      }
+}
