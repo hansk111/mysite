@@ -28,10 +28,10 @@ DEBUG = False
 DATABASES = {
       'default': {
           'ENGINE': 'django.db.backends.postgresql_psycopg2',
-          'NAME': 'smarthandb',
+          'NAME': 'mysite',
           'HOST': 'localhost',
           'PORT': '5432',
-          'USER': 'smarthan',
-          'PASSWORD': 'smarthanadmin'
+          'USER': 'han',
+          'PASSWORD': 'han'
       }
 }
