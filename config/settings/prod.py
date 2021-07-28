@@ -39,7 +39,7 @@ DEBUG = False
 
 
 # root password : admin
-  DATABASES = {
+DATABASES = {
       'default': {
           'ENGINE': 'django.db.backends.mysql',
           'NAME': 'smarthandb',
@@ -48,4 +48,4 @@ DEBUG = False
           'USER': 'root',
           'PASSWORD': 'admin'
       }
-  }
+}
