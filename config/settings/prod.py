@@ -31,8 +31,8 @@ DATABASES = {
           'NAME': 'mysite',
           'HOST': 'localhost',
           'PORT': '5432',
-          'USER': 'han',
-          'PASSWORD': 'han'
+          'USER': 'postgres',
+          'PASSWORD': 'postgres'
       }
 }
 
