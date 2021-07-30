@@ -158,8 +158,10 @@ def post_create(request):
         category = Category.objects.get(pk=1)
     elif ca == '식물':
         category = Category.objects.get(pk=2)
-    else:
+    elif ca == '여행':
         category = Category.objects.get(pk=3)
+    else:
+        category = Category.objects.get(pk=4)
     
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -195,12 +197,14 @@ def post_modify(request, post_id):
         return redirect('board:detail', post_id=post.id)
     
     ca = request.POST.get('category', '') 
-    if ca == 'category1':
+    if ca == '골프':
         category = Category.objects.get(pk=1)
-    elif ca == 'category2':
+    elif ca == '식물':
         category = Category.objects.get(pk=2)
-    else:
+    elif ca == '여행':
         category = Category.objects.get(pk=3)
+    else:
+        category = Category.objects.get(pk=4)
     
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
