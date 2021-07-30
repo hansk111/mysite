@@ -55,7 +55,7 @@ def board(request):
         ).distinct()
 
       
-    paginator = Paginator(post_list, 4)  # 페이지당 3개씩 보여주기
+    paginator = Paginator(post_list, 4)  # 페이지당 4개씩 보여주기
     page_obj = paginator.get_page(page)
 
 
