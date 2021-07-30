@@ -25,27 +25,27 @@ DEBUG = True
 #     }
 # }
 
-DATABASES = {
-      'default': {
-          'ENGINE': 'django.db.backends.postgresql_psycopg2',
-          'NAME': 'mysite',
-          'HOST': 'localhost',
-          'PORT': '5432',
-          'USER': 'postgres',
-          'PASSWORD': 'postgres'
-      }
-}
-
-
-
-# root password : admin
 # DATABASES = {
 #       'default': {
-#           'ENGINE': 'django.db.backends.mysql',
-#           'NAME': 'smarthandb',
+#           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#           'NAME': 'mysite',
 #           'HOST': 'localhost',
-#           'PORT': '3306',
-#           'USER': 'root',
-#           'PASSWORD': 'admin'
+#           'PORT': '5432',
+#           'USER': 'postgres',
+#           'PASSWORD': 'postgres'
 #       }
 # }
+
+
+
+# mariadb root password : admin
+DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.mysql',
+          'NAME': 'smarthandb',
+          'HOST': 'localhost',
+          'PORT': '3306',
+          'USER': 'root',
+          'PASSWORD': 'admin'
+      }
+}
