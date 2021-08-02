@@ -68,7 +68,7 @@
                     {% endif %}
               </div>
               <!-- 포스트의 내용 -->
-              <div class="card-text" style="white-space: pre-line;">
+              <div class="card-text card-img-top" style="white-space: pre-line;">
                 {{ post.content|safe }}
               </div>
               <!-- 수정. 생성 날짜 -->
@@ -182,7 +182,9 @@
               </div>
               {% endif %}
               <div class="form-group">
-                  <textarea name="content" id="content" class="form-control" rows="5"></textarea>
+                <textarea class="form-control" name="content"
+                id="editor" rows="5">{{ form.content.value|default_if_none:'' }}</textarea>
+                  <!-- <textarea name="content" id="content" class="form-control" rows="5"></textarea> -->
               </div>
               <!-- <input type="submit" value="뎃글달기" class="btn btn-outline-success btn-sm"> -->
               <button type="submit" class="btn btn-primary">댓글달기</button>
@@ -260,6 +262,14 @@ $(document).ready(function(){
     
   });
 </script>
+<script>
+  // 3. CKEditor5를 생성할 textarea 지정
+  ClassicEditor
+      .create( document.querySelector( '#editor' ) )
+      .catch( error => {
+          console.error( error );
+      } );
+</script> 
 {% endblock %}
 
 
