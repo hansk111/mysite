@@ -5,6 +5,7 @@
 <!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/lang/summernote-ko-KR.min.js"></script> -->
 <link rel="stylesheet" media="screen, print" href="{% static 'css/formplugins/summernote/summernote.css' %}">
+<script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
 {% endblock %}
 {% load static %}
 
@@ -63,10 +64,15 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="content">내용</label>
                     <textarea class="form-control" name="content"
                             id="summernote" rows="5">{{ form.content.value|default_if_none:'' }}</textarea>
+                </div> -->
+                <div class="form-group">
+                    <label for="content">내용</label>
+                    <textarea class="form-control" name="content"
+                            id="editor" rows="5">{{ form.content.value|default_if_none:'' }}</textarea>
                 </div>
                 <div class="mt-3">
                     <div class="custom-control custom-checkbox">
@@ -78,7 +84,7 @@
                             <option class="dropdown-item input-group-text" value="골프">골프</option>
                             <option class="dropdown-item input-group-text" value="식물">식물</option>
                             <option class="dropdown-item input-group-text" value="여행">여행</option>
-                            <option class="dropdown-item input-group-text" value="기타">기타</option>
+                            <option class="dropdown-item input-group-text" value="기타">한기타</option>
                         </select>
                     </div>
                 </div>
@@ -130,6 +136,13 @@
     }); 
 
 </script>
-   
+<script>
+    // 3. CKEditor5를 생성할 textarea 지정
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>   
 
 {% endblock %}

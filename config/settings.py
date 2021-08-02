@@ -15,7 +15,7 @@ from pathlib import Path
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -32,7 +32,7 @@ DEBUG = True
 #     ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
 # else:
 #     ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['3.38.71.222']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -117,6 +117,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.facebook',
     'easy_thumbnails',
+    'ckeditor',
+
     
 
 ]

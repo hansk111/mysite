@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
+from ckeditor.fields import RichTextField
 
 
 # Create your models here.
@@ -24,7 +25,7 @@ class Category(MPTTModel):
 
 class Post(models.Model):
     subject = models.CharField(max_length=200)
-    content = models.TextField()
+    content = RichTextField()
     create_date = models.DateTimeField()
     modify_date = models.DateTimeField(null=True, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='author_post')
