@@ -117,6 +117,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.facebook',
     'easy_thumbnails',
+    'ckeditor',
+    'ckeditor_uploader',
     
 
 ]
@@ -219,6 +221,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
 # ---------------------------------- [edit] ---------------------------------- #
 # 로그인 성공후 이동하는 URL
 
