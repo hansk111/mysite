@@ -265,6 +265,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 CKEDITOR_CONFIGS = {
     'default': {
         'skin': 'moono',
+        'width':'auto',
+        'height':'250px',
         # 'skin': 'office2013',
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
@@ -294,8 +296,21 @@ CKEDITOR_CONFIGS = {
             '/',  # put this to force next toolbar on new line
             {'name': 'yourcustomtools', 'items': [
                 # put the name of your editor.ui.addButton here
+                 
+                'Format',
+                'Font', 
+                'FontSize',
+                'Image',
+                'Bold', 
+                'Italic', 
+                'Underline', 
+                'TextColor',
+                'NumberedList', 
+                'BulletedList',
+                'CreateDiv',
                 'Preview',
                 'Maximize',
+                'Source',
 
             ]},
         ],

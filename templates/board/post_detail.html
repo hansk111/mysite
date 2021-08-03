@@ -277,15 +277,12 @@ $(document).ready(function(){
     
   });
 </script>
-<!-- <script>
-  // 3. CKEditor5를 생성할 textarea 지정
-  ClassicEditor
-      .create( document.querySelector( '#editor' ) )
-      .catch( error => {
-          console.error( error );
-      } );
+<script>
+  $(document).ready(function () {
+    $("#cke_id_content").css("width", "100%")
+ });
 
-</script>  -->
+</script> 
 {% endblock %}
 
 
