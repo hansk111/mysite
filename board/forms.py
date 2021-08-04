@@ -4,6 +4,7 @@ from board.models import Post, Comment
 
 
 
+
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
@@ -11,7 +12,8 @@ class PostForm(forms.ModelForm):
 
         widgets = {
             'subject': forms.TextInput(attrs={'class': 'form-control'}),
-            'head_image': forms.FileInput(attrs={'class': 'form-control'}),
+            'head_image': forms.FileInput(attrs={"rows": "", "class": "file_class_name"}),
+            
             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
         }
 

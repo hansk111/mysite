@@ -267,7 +267,11 @@ CKEDITOR_CONFIGS = {
     'default': {
         'skin': 'moono',
         'width':'auto',
-        'height':'250px',
+        # 'height':'800px',
+        'autoGrow_onStartup': True,
+        'autoGrow_minHeight': 100,
+        'autoGrow_maxHeight': 650,
+        'extraPlugins': 'autogrow',
         # 'skin': 'office2013',
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
@@ -290,7 +294,7 @@ CKEDITOR_CONFIGS = {
             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
             {'name': 'insert',
              'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
-            '/',
+            # '/',
             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
             {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
@@ -299,20 +303,20 @@ CKEDITOR_CONFIGS = {
             {'name': 'yourcustomtools', 'items': [
                 # put the name of your editor.ui.addButton here
                 
-                'Format',
-                'Font', 
-                'FontSize',
-                'Image',
-                'Bold', 
-                'Italic', 
-                'Underline', 
-                'TextColor',
-                'NumberedList', 
-                'BulletedList',
-                'CreateDiv',
-                'Preview',
-                'Maximize',
-                'Source',
+                # 'Format',
+                # 'Font', 
+                # 'FontSize',
+                # 'Image',
+                # 'Bold', 
+                # 'Italic', 
+                # 'Underline', 
+                # 'TextColor',
+                # 'NumberedList', 
+                # 'BulletedList',
+                # 'CreateDiv',
+                # 'Preview',
+                # 'Maximize',
+                # 'Source',
                 
 
             ]},
