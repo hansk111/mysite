@@ -152,16 +152,16 @@ def index(request):
 @login_required(login_url='common:login')
 def post_create(request):
 
-    ca = request.POST.get('category', '') 
+    # ca = request.POST.get('category', '') 
    
-    if ca == '골프':
-        category = Category.objects.get(pk=1)
-    elif ca == '식물':
-        category = Category.objects.get(pk=2)
-    elif ca == '여행':
-        category = Category.objects.get(pk=3)
-    else:
-        category = Category.objects.get(pk=4)
+    # if ca == '골프':
+    #     category = Category.objects.get(pk=1)
+    # elif ca == '식물':
+    #     category = Category.objects.get(pk=2)
+    # elif ca == '여행':
+    #     category = Category.objects.get(pk=3)
+    # else:
+    #     category = Category.objects.get(pk=4)
     
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -172,7 +172,7 @@ def post_create(request):
             post.author = request.user
             
 
-            post.category = category
+            # post.category = category
             post.save()
 
             for headimage in request.FILES.getlist('head_image'):
@@ -196,15 +196,15 @@ def post_modify(request, post_id):
         messages.error(request, '수정권한이 없습니다')
         return redirect('board:detail', post_id=post.id)
     
-    ca = request.POST.get('category', '') 
-    if ca == '골프':
-        category = Category.objects.get(pk=1)
-    elif ca == '식물':
-        category = Category.objects.get(pk=2)
-    elif ca == '여행':
-        category = Category.objects.get(pk=3)
-    else:
-        category = Category.objects.get(pk=4)
+    # ca = request.POST.get('category', '') 
+    # if ca == '골프':
+    #     category = Category.objects.get(pk=1)
+    # elif ca == '식물':
+    #     category = Category.objects.get(pk=2)
+    # elif ca == '여행':
+    #     category = Category.objects.get(pk=3)
+    # else:
+    #     category = Category.objects.get(pk=4)
     
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
@@ -212,7 +212,7 @@ def post_modify(request, post_id):
             post = form.save(commit=False)
             post.author = request.user
             post.modify_date = timezone.now()  # 수정일시 저장
-            post.category = category
+            # post.category = category
             post.save()
             for headimage in request.FILES.getlist('head_image'):
                post.head_image = headimage
