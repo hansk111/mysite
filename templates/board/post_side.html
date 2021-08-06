@@ -94,15 +94,15 @@
           <h3>Popular stories</h3>
           {% for pp in popular_post_list %}
           <div class="block-21 mb-4 d-flex">
-            <a href="{% url 'board:detail' pp.id %}" class="d-inline-block">
+            <a href="{% url 'board:detail' pp.id %}" class="col-8">
               {% if pp.head_image %}
-              <img src="{{ pp.head_image.url }}" width="100px" height="100px" class="card-img-top" alt="...">
+              <img src="{{ pp.head_image.url }}" class="card-img-top" alt="...">
               {% else %}
-              <img src="https://picsum.photos/id/{{pp.id}}/100/100" class="card-img-top" alt="...">
+              <img src="https://picsum.photos/id/{{pp.id}}/100/60" class="card-img-top" alt="...">
               {% endif %}
               
             </a>
-            <div class="text text-right">
+            <div class="col-4">
               <h4 class="heading"><a href="{% url 'board:detail' pp.id %}">{{ pp.subject | striptags | truncatechars:12 }}</a></h4>
               <div class="meta">
                 <div> {{ pp.create_date|date:"y-m-d" }} by {{ pp.author.username }} </div>

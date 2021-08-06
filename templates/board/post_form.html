@@ -12,55 +12,72 @@
 {% block content %}
 <main id="js-page-content" role="main" class="page-content">
     <ol class="breadcrumb page-breadcrumb">
-        <li class="breadcrumb-item"><a href="javascript:void(0);">SmartAdmin</a></li>
-        <li class="breadcrumb-item">Application Intel</li>
-        <li class="breadcrumb-item">게시판</li>
-        <li class="breadcrumb-item active">게시글 쓰기</li>
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'board:board' %}" title="블로그를 화면으로">블로그</a></li>
+        <li class="breadcrumb-item">블로그 쓰기</li>
+        <!-- <li class="breadcrumb-item active">게시글 쓰기</li> -->
         <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
     </ol>
-    <div class="subheader">
+    <!-- <div class="subheader">
         <h1 class="subheader-title">
             <i class='fal fa-info-circle'></i> 게시글 쓰기
             <small>
                 게시글을 써 주세요
             </small>
         </h1>
-    </div>
-    <div class="fs-lg fw-300 p-5 bg-white border-faded rounded mb-g">
-
-    <div class="container">
-        <h5 class="my-3 border-bottom pb-2">게시글 등록</h5>
-        {{form.media}}
-        <form enctype="multipart/form-data" method="post" class="post-form my-3">
-            {% csrf_token %}
-            <!-- {{ form.as_p }} -->
-                <!-- 오류표시 Start -->
-                {% if form.errors %}
-                <div class="alert alert-danger" role="alert">
-                {% for field in form %}
-                    {% if field.errors %}
-                    <strong>{{ field.label }}</strong>
-                    {{ field.errors }}
-                    {% endif %}
-                {% endfor %}
+    </div> -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        <a class="h2" href="">
+                            블로그 만들기</a>&emsp;
+                        <span class="font-italic h5">만들기 / 수정</span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
                 </div>
-                {% endif %}
-                <!-- 오류표시 End -->
-               
-                
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <!-- <h5 class="my-3 border-bottom pb-2">게시글 등록</h5> -->
+                        {{form.media}}
+                        <form enctype="multipart/form-data" method="post" class="post-form my-3">
+                            {% csrf_token %}
+                            <!-- {{ form.as_p }} -->
+                                <!-- 오류표시 Start -->
+                                {% if form.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                {% for field in form %}
+                                    {% if field.errors %}
+                                    <strong>{{ field.label }}</strong>
+                                    {{ field.errors }}
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
+                                {% endif %}
+                                <!-- 오류표시 End -->
+                            
+                                
 
 
-        {{form.media}}
-        <form enctype="multipart/form-data" method="POST" class="post-form my-3">
-            {% csrf_token %}
-            {{ form.as_p}}
-            <p></p>
-            <button type="submit" class="btn btn-primary">저장하기</button>
-        </form>
-
+                        {{form.media}}
+                        <form enctype="multipart/form-data" method="POST" class="post-form my-3">
+                            {% csrf_token %}
+                            {{ form.as_p}}
+                            <p></p>
+                            <button type="submit" class="btn btn-primary">저장하기</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    </div>
+
 </main>
 {% endblock %}
 {% block script %}
