@@ -115,7 +115,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'mptt',
     'allauth.socialaccount.providers.google',
-    # 'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.kakao',
     'easy_thumbnails',
     'ckeditor',
     'ckeditor_uploader',
