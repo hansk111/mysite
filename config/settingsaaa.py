@@ -115,7 +115,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'mptt',
     'allauth.socialaccount.providers.google',
-    # 'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.kakao',
     'easy_thumbnails',
     'ckeditor',
     'ckeditor_uploader',
@@ -241,6 +241,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_ON_GET = True
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
