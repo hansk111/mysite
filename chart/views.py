@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, resolve_url
 from .models import Sales, Material, Amsales
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required(login_url='common:login')
 def chart(request):
     sales = Sales.objects.all()
     amsales = Amsales.objects.all()

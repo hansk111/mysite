@@ -34,9 +34,11 @@ def page_not_found(request, exception):
 #         redirect_url = 'http://localhost:8000/users/signin/kakao/callback'
 #         kakao_auth_api = 'https://kauth.kakao.com/oauth/authorize?response_type=code'
 #         return redirect(f'{kakao_auth_api}&client_id={app_key}&redirect_url={redirect_url}')
-def kakao_login(request):
-    app_rest_api_key = os.environ.get("KAKAO_REST_API_KEY")
-    redirect_uri = main_domain + "accounts/kakao/login/callback"
-    return redirect(
-        f"https://kauth.kakao.com/oauth/authorize?client_id={'dd99876cc36043c5db37fcb1310f3ca7'}&redirect_uri={'http://localhost:8000/accounts/kakao/login/callback'}&response_type=code"
-    )
+# def kakao_login(request):
+#     app_rest_api_key = os.environ.get("KAKAO_REST_API_KEY")
+#     print("KAKAO_REST_API_KEY=", app_rest_api_key)
+#     redirect_uri = main_domain + "accounts/kakao/login/callback"
+
+#     return redirect(
+#         f"https://kauth.kakao.com/oauth/authorize?client_id={'app_rest_api_key'}&redirect_uri={'http://localhost:8000/accounts/kakao/login/callback'}&response_type=code"
+#     )

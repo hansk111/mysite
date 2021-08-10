@@ -565,7 +565,12 @@
                                     {% get_social_accounts user as accounts %}
                                     {% if accounts.google %}
                                     <a class="dropdown-item fw-500 pt-3 pb-3" href="accounts/logout">
-                                        <span data-i18n="drpdwn.page-logout">Logout소셜</span>
+                                        <span data-i18n="drpdwn.page-logout">Logout구글</span>
+                                        <span class="float-right fw-n">{{ user.username }}</span>
+                                    </a>
+                                    {% elif accounts.kakao %}
+                                    <a class="dropdown-item fw-500 pt-3 pb-3" href="accounts/logout">
+                                        <span data-i18n="drpdwn.page-logout">Logout카카오</span>
                                         <span class="float-right fw-n">{{ user.username }}</span>
                                     </a>
                                     {% else %}
