@@ -4,6 +4,13 @@
 {% load socialaccount %}
 {% providers_media_js %}
 
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+
+
 <!-- ----------------------------------------------------------------------- -->
 <div class="flex-1" style="background: url({% static '/img/svg/pattern-1.svg' %}) no-repeat center bottom fixed; background-size: cover;">
     <div class="container py-4 py-lg-5 my-lg-5 px-4 px-sm-0">
@@ -61,10 +68,11 @@
                     </form>
                     <div class="row no-gutters">
                         <div class="col-lg-6 pr-lg-1 my-2">
-                            <a title="Google" class="btn btn-info btn-block btn-lg" href="{% provider_login_url 'google' %}">Sign in with <i class="fab fa-google"></i></a>
+                            <a title="Google" class="btn btn-info btn-block btn-lg"  href="{% provider_login_url 'google' %}">Sign in with <i class="fab fa-google"></i></a>
                         </div>
+                        <div class="g-signin1" data-onsuccess="onSignIn" data-theme="dark"></div>
                         <div class="col-lg-6 pr-lg-1 my-2">
-                            <a title="" class="btn" href="{% provider_login_url 'kakao' %}"><img class="" src="{% static 'img/kakao_login_large_narrow.png' %}"/></a>
+                            <a title="" class="btn btn-info btn-block btn-lg" href="{% provider_login_url 'kakao' %}"><img class="" src="{% static 'img/kakao_login_large_narrow.png' %}"/></a>
                         </div>
                     </div>
 
@@ -78,3 +86,7 @@
 </div>
 <!-- ------------------------------- [edit] -------------------------------- -->
 {% endblock %}
+
+
+
+  
