@@ -146,12 +146,12 @@
                         {% if user.is_authenticated %}
                         <div class="info-card">
                             {% if user.user_image %}
-                            <img src="{{ user.user_image.url }}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
+                            <img src="{{ user.user_image.url }}" class="profile-image rounded-circle" alt="user image">
                             {% endif %}
                             {% get_providers as socialaccount_providers %}
                             {% if socialaccount_providers %}
                             {% for account in user.socialaccount_set.all %}
-                            <img src="{{ account.get_avatar_url }}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
+                            <img src="{{ account.get_avatar_url }}" class="profile-image rounded-circle" alt="user image">
                             {% endfor %}
                             {% endif %}
                             <div class="info-card-text">
