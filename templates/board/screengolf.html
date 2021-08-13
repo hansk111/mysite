@@ -3,7 +3,14 @@
 
 {% block content %}
 <main id="js-page-content" role="main" class="page-content">
-                        
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
+        <li class="breadcrumb-item"><a href="" title="블로그를 화면으로">골프</a></li>
+       
+        <li class="breadcrumb-item active">스크린골프</li>
+        
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>                    
                         
     <div class="row">
 
