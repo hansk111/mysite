@@ -1,3 +1,7 @@
+
+{% load static %}
+
+
 <div class="col-md-3 ml-auto">
   <div id="panel-1" class="panel">
     <div class="panel-hdr">
@@ -31,16 +35,42 @@
                     {% for ca in categoryall %}
                     {% if ca.id == 1 %}
                     <div class="carousel-item active">
-                    {% else %}
-                    <div class="carousel-item">
-                    {% endif %}
-                      <img class="d-block w-100" src="https://picsum.photos/id/{{ca.id}}/200/100" alt="First slide [800x400]">
+                      <img class="d-block w-100" src="{% static 'img/sidepage/golf_640.jpg' %}" alt="First slide [640_330]">
                       <div class="carousel-caption d-none d-md-block">
                         <a href="{% url 'board:board_category' ca.id %}">
                           <h1>{{ca.title}}</h1>
                         </a>  
                       </div>
                     </div>
+                    {% elif ca.id == 2 %}
+                    <div class="carousel-item">
+                      <img class="d-block w-100" src="{% static 'img/sidepage/pots_640.jpg' %}" alt="First slide [640_330]">
+                      <div class="carousel-caption d-none d-md-block">
+                        <a href="{% url 'board:board_category' ca.id %}">
+                          <h1>{{ca.title}}</h1>
+                        </a>  
+                      </div>
+                    </div>
+                    {% elif ca.id == 3 %}
+                    <div class="carousel-item">
+                      <img class="d-block w-100" src="{% static 'img/sidepage/beach_640.jpg' %}" alt="First slide [640_330]">
+                      <div class="carousel-caption d-none d-md-block">
+                        <a href="{% url 'board:board_category' ca.id %}">
+                          <h1>{{ca.title}}</h1>
+                        </a>  
+                      </div>
+                    </div>
+                    {% else %}
+                    <div class="carousel-item">
+                      <img class="d-block w-100" src="{% static 'img/sidepage/guitar_640.png' %}" alt="First slide [640_330]">
+                      <div class="carousel-caption d-none d-md-block">
+                        <a href="{% url 'board:board_category' ca.id %}">
+                          <h1>{{ca.title}}</h1>
+                        </a>  
+                      </div>
+                    </div>
+                    {% endif %}
+                    
                     {% endfor %}
                   </div>
                   <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
