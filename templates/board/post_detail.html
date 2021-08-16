@@ -6,19 +6,19 @@
 
 <main id="js-page-content" role="main" class="page-content">
     <ol class="breadcrumb page-breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'index' %}">SmartAdmin</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'index' %}">SmartHAN</a></li>
       <li class="breadcrumb-item"><a href="{% url 'board:board' %}">블로그</a></li>
-      <li class="breadcrumb-item active">게시글상세, 댓글 달기</li>
+      <li class="breadcrumb-item active">블로그상세보기</li>
       <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
     </ol>
-    <div class="subheader">
+    <!-- <div class="subheader">
       <h1 class="subheader-title">
           <i class='fal fa-info-circle'></i> 게시글 상세 보기, 댓글 달기
           <small>
               게시물을 보고 댓글을 달아 주세요.
           </small>
       </h1>
-    </div>
+    </div> -->
 
       <!-- 본인이 작성한 글을 추천할 경우 에러 표시 -->
       {% if messages %}
