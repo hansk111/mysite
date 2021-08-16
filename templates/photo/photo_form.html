@@ -7,18 +7,18 @@
 <main id="js-page-content" role="main" class="page-content">
     <ol class="breadcrumb page-breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
-        <li class="breadcrumb-item">Main</li>
-        <li class="breadcrumb-item active">Introduction</li>
+        <li class="breadcrumb-item">사진</li>
+        <li class="breadcrumb-item active">등록/추가</li>
         <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
     </ol>
-    <div class="subheader">
+    <!-- <div class="subheader">
         <h1 class="subheader-title">
             <i class='fal fa-info-circle'></i> 사진 추가
             <small>
                 이 사이트의 간단한 소개입니다.
             </small>
         </h1>
-    </div>
+    </div> -->
     
 
 
@@ -112,7 +112,8 @@
             </div>
         </div>
     </div>
+</main>
     {% endblock %}
     {% block script %}
-    <script src="{% static 'js/formplugins/dropzone/dropzone.js' %}"></script>
+  
     {% endblock %}
