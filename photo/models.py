@@ -39,16 +39,4 @@ class Photo(models.Model):
         return reverse('photo:photo_detail', args=(self.id,))
 
 
-class Videos(models.Model):
-    
-    title = models.CharField(max_length=100)
-    video = models.FileField(upload_to='videos/%Y/%m')
-    video_thumbnail = models.ImageField(upload_to='videos/%Y/%m', blank=True)
-     
-    class Meta:
-        verbose_name = 'video'
-        verbose_name_plural = 'videos'
-         
-    def __str__(self):
-        return self.title
 

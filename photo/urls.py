@@ -42,7 +42,6 @@ urlpatterns = [
     # Example: /photo/photo/99/delete/
     path('photo/<int:pk>/delete/', views.PhotoDelV.as_view(), name='photo_delete'),
 
-    path('upload/',views.upload_video,name='video_upload'),
-    path('videos/',views.display,name='videos_display'),
+ 
 
 ]

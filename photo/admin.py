@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from photo.models import Album, Photo, Videos
+from photo.models import Album, Photo
 
 
 class PhotoInline(admin.StackedInline):
@@ -20,4 +20,3 @@ class PhotoAdmin(admin.ModelAdmin):
 
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(Photo, PhotoAdmin)
-admin.site.register(Videos)

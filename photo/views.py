@@ -1,5 +1,5 @@
 from django.views.generic import ListView, DetailView
-from photo.models import Album, Photo, Videos
+from photo.models import Album, Photo
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
@@ -11,49 +11,49 @@ import ffmpeg
 import sys
 import requests
 
-def upload_video(request):
+# def upload_video(request):
      
-    if request.method == 'POST': 
+#     if request.method == 'POST': 
          
-        title = request.POST['title']
-        video = request.POST['video']
-        video_path = 'videos/%Y/%m'
-        image_path = 'videos/%Y/%m'
-        time = '00:00:00.000'
-        video_thumbnail = generate_thumbnail(video, video_thum)
-        content = Videos(title=title,video=video,video_thumbnail=video_thumbnail)
-        content.save()
+#         title = request.POST['title']
+#         video = request.POST['video']
+#         video_path = 'videos/%Y/%m'
+#         image_path = 'videos/%Y/%m'
+#         time = '00:00:00.000'
+#         video_thumbnail = generate_thumbnail(video, video_thum)
+#         content = Videos(title=title,video=video,video_thumbnail=video_thumbnail)
+#         content.save()
 
-        return redirect('videos_display')
+#         return redirect('videos_display')
      
-    return render(request,'photo/video_upload.html')
+#     return render(request,'photo/video_upload.html')
 
-def generate_thumbnail(in_filename, out_filename):
-    probe = ffmpeg.probe(in_filename)
-    time = float(probe['streams'][0]['duration']) // 2
-    width = probe['streams'][0]['width']
-    try:
-        (
-            ffmpeg
-            .input(in_filename, ss=time)
-            .filter('scale', width, -1)
-            .output(out_filename, vframes=1)
-            .overwrite_output()
-            .run(capture_stdout=True, capture_stderr=True)
-        )
-    except ffmpeg.Error as e:
-        print(e.stderr.decode(), file=sys.stderr)
-        sys.exit(1)
+# def generate_thumbnail(in_filename, out_filename):
+#     probe = ffmpeg.probe(in_filename)
+#     time = float(probe['streams'][0]['duration']) // 2
+#     width = probe['streams'][0]['width']
+#     try:
+#         (
+#             ffmpeg
+#             .input(in_filename, ss=time)
+#             .filter('scale', width, -1)
+#             .output(out_filename, vframes=1)
+#             .overwrite_output()
+#             .run(capture_stdout=True, capture_stderr=True)
+#         )
+#     except ffmpeg.Error as e:
+#         print(e.stderr.decode(), file=sys.stderr)
+#         sys.exit(1)
 
 
-def display(request):
+# def display(request):
      
-    videos = Videos.objects.all()
-    context ={
-        'videos':videos,
-    }
+#     videos = Videos.objects.all()
+#     context ={
+#         'videos':videos,
+#     }
      
-    return render(request,'photo/videos_display.html',context)
+#     return render(request,'photo/videos_display.html',context)
 
 
 

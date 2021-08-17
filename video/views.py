@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.models import User
@@ -6,15 +7,17 @@ from .models import VideoPost, Comment
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # Create your views here.
-
+@login_required(login_url='common:login')
 def home(request):
-    if not request.user.is_authenticated:
-        demo_videos = VideoPost.objects.all().order_by('-id')[:5]
-        params = {'videos': demo_videos}
-        return render(request, 'video/welcome.html', params)
-    else:
+    # if not request.user.is_authenticated:
+    #     demo_videos = VideoPost.objects.all().order_by('-id')[:5]
+    #     params = {'videos': demo_videos}
+    #     return render(request, 'video/welcome.html', params)
+    # else:
         all_videos = VideoPost.objects.all().order_by('-id')
         params = {'all_videos': all_videos}
         return render(request, 'video/home.html', params)
@@ -29,6 +32,7 @@ def search(request):
 
     return render(request, 'video/search_page.html', params)
 
+@login_required(login_url='common:login')
 def upload_video(request):
     if request.method == 'POST':
         title = request.POST['title']
@@ -40,15 +44,18 @@ def upload_video(request):
         upload_video = VideoPost(user=user_obj, title=title, desc=desc, video_file=video_file, thumbnail=thumb_nail, category=cate)
         upload_video.save()
         messages.success(request, 'Video has been uploaded.')
+        return redirect('video:home')
 
-    return render(request, 'video/upload_video.html')
+    return render(request, 'video/upload.html')
 
 
 def watch_video(request, video_id):
     try:
         video_obj = VideoPost.objects.get(id=video_id)
     except ObjectDoesNotExist:
+        print("404 error")
         return render(request, 'video/404.html')
+
     try:
         session_obj = User.objects.get(username=request.user.username)
     except:
@@ -56,13 +63,13 @@ def watch_video(request, video_id):
         return redirect('home')
 
     video_comments = Comment.objects.filter(post=video_obj).order_by('-id')
-
+    
 
     # Increase Views of Video if User visit this page
 
     if request.user not in video_obj.video_views.all():
         video_obj.video_views.add(request.user)
-
+         
 
 
     # Increase Likes of Video if User like this video

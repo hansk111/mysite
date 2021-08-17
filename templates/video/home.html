@@ -1,37 +1,143 @@
 {% extends 'main_base.html' %}
 {% load static %}
 
+{% block header %}
+<link rel="stylesheet" media="screen, print" href="{% static 'css/miscellaneous/lightgallery/lightgallery.bundle.css' %}">
+
+{% endblock %}
+
 {% block content %}
-    <div class="container-fluid">
-      <div class="card bg-light text-white">
-        <img src="{% static 'img/bg2.jpg' %}" class="card-img" style="height: 350px;" alt="...">
-        <div class="card-img-overlay">
-          <h2 style="margin-top: 150px; margin-left: 350px;">Viral Your Video Here and get more audience</h2>
-        </div>
+
+<main id="js-page-content" role="main" class="page-content">
+  <ol class="breadcrumb page-breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'index' %}">SmartHAN</a></li>
+      <li class="breadcrumb-item">동영상</li>
+      <li class="breadcrumb-item active">리스트</li>
+      <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+  </ol>
+  <!-- <div class="subheader">
+      <h1 class="subheader-title">
+          <i class='fal fa-info-circle'></i> 소개
+          <small>
+              이 사이트의 간단한 소개입니다.
+          </small>
+      </h1>
+  </div> -->
+
+
+
+  
+  <div class="row">
+      <div class="col-xl-12">
+          <div id="panel-1" class="panel">
+              <div class="panel-hdr">
+                  <h2>
+                      <a class="h2" href="">
+                          전체 앨범 사진들</a>&emsp;
+                      <span class="font-italic h5">그림을 클릭하세요.</span>
+                  </h2>
+                  <div class="panel-toolbar">
+                      <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                      <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                      <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                  </div>
+              </div>
+              <div class="panel-container show">
+                  <div class="panel-content">
+                      <div id="js-lightgallery" >
+                        {% for video in all_videos %}
+                        
+                        <a
+                        data-lg-size="800-600"
+                        data-video='{"source": [{"src":"{{ video.video_file.url }}", "type":"video/mp4"}], "attributes": {"preload": false, "controls": true}}'
+                        data-poster="{{ video.thumbnail.url }}"
+                        data-sub-html="<h4>'Peck Pocketed' by Kevin Herron | Disney Favorite</h4>"
+                        >
+                        <img
+                            width="100"
+                            height=""
+                            class="img-responsive"
+                            src="{{ video.thumbnail.url }}"
+                        />
+                    </a>
+                          
+                          <!-- <a href="{{ video.video_file.url }}" class="jg-entry entry-visible">
+                            <img class="img-responsive" src="{{ video.thumbnail.url }}" alt="{{ video.title }}">
+                          </a> -->
+                         
+                                                   
+                      {% endfor %}    
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
-
-    <div class="container">
-      <div class="row my-4">
-
-        {% for video in all_videos %}
-        <div class="col-3">
-
-          <a href="{% url 'video:watch_video' video.id %}" style="text-decoration: none;">
-            <img src="{% static video.thumbnail.url %}" class="w-100">
-          </a>
-          <a href="{% url 'video:watch_video' video.id %}" style="text-decoration: none;">
-            <h6>{{video.title}}</h6>  
-          </a>
-          <span class="text-muted">{{video.video_views.all.count}} views • {{video.pub_date}}</span>
-
-        </div>
-        {% endfor %}
+  </div>           
+ 
 
 
-      <hr>
 
-    </div>
+
+
+  <div class="row">
+      <div class="col-xl-12">
+          <div id="panel-1" class="panel panel-collapsed">
+              <div class="panel-hdr">
+                  <h2>
+                      <a class="h2" href="">
+                          </a>&emsp;
+                      <span class="font-italic h5"></span>
+                      
+                  </h2>
+                  <div class="panel-toolbar">
+                      <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                      <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                      <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                  </div>
+              </div>
+              <div class="panel-container show">
+                  <div class="panel-content">
+                      <div id="js-lightgallery" >
+                            {% for video in all_videos %}
+                            <a class="jg-entry entry-visible" href="{% url 'video:watch_video' video.id %}">
+                                <img class="img-responsive" src="{{ video.thumbnail.url }}" alt="{{ video.title }}" style="width: 150px">
+                                <h6>{{video.title}}</h6>  
+                            </a>
+                          {% endfor %}                           
+                         
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>           
+
+
+</main>
+
+   
 
 
 {% endblock %}    
+{% block script %}
+
+<script src="{% static 'js/miscellaneous/lightgallery/lightgallery.bundle.js' %}"></script>
+<script type="text/javascript">
+    lightGallery(document.getElementById('lightgallery'), {
+        plugins: [lgZoom, lgThumbnail],
+        speed: 500,
+       
+    });
+</script>
+<script>
+    $(document).ready(function()
+    {
+        lightGallery(document.getElementById('js-lightgallery'));
+
+
+    });
+
+</script>
+
+
+{% endblock %}
