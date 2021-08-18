@@ -4,6 +4,7 @@
 {% block header %}
 <link rel="stylesheet" media="screen, print" href="{% static 'css/miscellaneous/lightgallery/lightgallery.bundle.css' %}">
 
+
 {% endblock %}
 
 {% block content %}
@@ -27,53 +28,46 @@
 
 
   
-  <div class="row">
-      <div class="col-xl-12">
-          <div id="panel-1" class="panel">
-              <div class="panel-hdr">
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
                   <h2>
                       <a class="h2" href="">
-                          전체 앨범 사진들</a>&emsp;
-                      <span class="font-italic h5">그림을 클릭하세요.</span>
+                          전체 동영상</a>&emsp;
+                      <span class="font-italic h5">동영상을 클릭하세요.</span>
                   </h2>
                   <div class="panel-toolbar">
                       <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
                       <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
                       <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
                   </div>
-              </div>
-              <div class="panel-container show">
-                  <div class="panel-content">
-                      <div id="js-lightgallery" >
-                        {% for video in all_videos %}
-                        
-                        <a
-                        data-lg-size="800-600"
-                        data-video='{"source": [{"src":"{{ video.video_file.url }}", "type":"video/mp4"}], "attributes": {"preload": false, "controls": true}}'
-                        data-poster="{{ video.thumbnail.url }}"
-                        data-sub-html="<h4>'Peck Pocketed' by Kevin Herron | Disney Favorite</h4>"
-                        >
-                        <img
-                            width="100"
-                            height=""
-                            class="img-responsive"
-                            src="{{ video.thumbnail.url }}"
-                        />
-                    </a>
-                          
-                          <!-- <a href="{{ video.video_file.url }}" class="jg-entry entry-visible">
-                            <img class="img-responsive" src="{{ video.thumbnail.url }}" alt="{{ video.title }}">
-                          </a> -->
-                         
-                                                   
-                      {% endfor %}    
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>           
- 
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div>
+                            {% for video in all_videos %}
+
+                            <div style="display:none;" id="{{video.id}}">
+                                <video class="lg-video-object lg-html5" controls="" preload="none">
+                                <source src="{{video.video_file.url}}" type="video/mp4">
+                                Your browser does not support HTML5 video.
+                                </video>
+                            </div>
+                            {% endfor %}  
+                            <div id="lightgallery">
+                                {% for video in all_videos %} 
+                                <a class="jg-entry entry-visible" href="" data-html="#{{video.id}}" >
+                                    <img class="img-responsive" src="{{ video.thumbnail.url }}" alt="{{ video.title }}" style="width: 150px">
+                                </a>
+                                {% endfor %}    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>           
+    </div>
 
 
 
@@ -85,7 +79,7 @@
               <div class="panel-hdr">
                   <h2>
                       <a class="h2" href="">
-                          </a>&emsp;
+                          </a>???????????
                       <span class="font-italic h5"></span>
                       
                   </h2>
@@ -97,7 +91,7 @@
               </div>
               <div class="panel-container show">
                   <div class="panel-content">
-                      <div id="js-lightgallery" >
+                      <div id="" >
                             {% for video in all_videos %}
                             <a class="jg-entry entry-visible" href="{% url 'video:watch_video' video.id %}">
                                 <img class="img-responsive" src="{{ video.thumbnail.url }}" alt="{{ video.title }}" style="width: 150px">
@@ -121,23 +115,21 @@
 {% endblock %}    
 {% block script %}
 
-<script src="{% static 'js/miscellaneous/lightgallery/lightgallery.bundle.js' %}"></script>
+<!-- <script src="{% static 'js/miscellaneous/lightgallery/lightgallery.bundle.js' %}"></script>
 <script type="text/javascript">
-    lightGallery(document.getElementById('lightgallery'), {
-        plugins: [lgZoom, lgThumbnail],
-        speed: 500,
-       
-    });
-</script>
+    lightGallery(document.getElementById('gallery-videos-demo'));
+</script> -->
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.11/js/lightgallery-all.min.js"></script>
 <script>
-    $(document).ready(function()
-    {
-        lightGallery(document.getElementById('js-lightgallery'));
-
-
+    $(document).ready(function() {
+    $('#lightgallery').lightGallery();
     });
-
 </script>
+
+
 
 
 {% endblock %}
