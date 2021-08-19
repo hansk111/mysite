@@ -191,8 +191,8 @@
                                 <ul>
                                     
                                     <li>
-                                        <a href="{% url 'board:screengolf' %}" title="스크린 골프" data-filter-tags="golf screen" class=" waves-effect waves-themed">
-                                            <span class="nav-link-text" data-i18n="nav.screengolf">스크린 골프</span>
+                                        <a href="{% url 'golf:screengolf' %}" title="나의 기록" data-filter-tags="golf screen" class=" waves-effect waves-themed">
+                                            <span class="nav-link-text" data-i18n="nav.screengolf">나의 기록</span>
                                         </a>
                                     </li>
                                     <li>
@@ -269,6 +269,11 @@
                                             <li>
                                                 <a href="{% url 'video:upload_video' %}" title="변경" data-filter-tags="pages forum threads">
                                                     <span class="nav-link-text" data-i18n="nav.pages_forum_threads">변경</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url  'video:dashboard' user.username  %}" title="대시보드" data-filter-tags="pages forum threads">
+                                                    <span class="nav-link-text" data-i18n="nav.pages_forum_threads">대시보드</span>
                                                 </a>
                                             </li>
                                         </ul>

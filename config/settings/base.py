@@ -109,6 +109,7 @@ INSTALLED_APPS = [
     'scard',
     'chart',
     'video',
+    'golf',
     #allauth
     'allauth',
     'allauth.account',
