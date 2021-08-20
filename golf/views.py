@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, resolve_url
 from .models import Fieldscore
 from django.contrib.auth.decorators import login_required
+import statistics
 # Create your views here.
 
 
@@ -30,9 +31,10 @@ def screengolf(request):
 
     maxvalue = max(fscore)
     minvalue = min(fscore)
+    averagevalue = statistics.mean(fscore)
+    averagevalue = round(averagevalue, 1)
 
-
-    context = {'fieldscore': fieldscore, 'ye': ye, 'maxvalue': maxvalue, 'minvalue': minvalue}
+    context = {'fieldscore': fieldscore, 'ye': ye, 'maxvalue': maxvalue, 'minvalue': minvalue, 'averagevalue': averagevalue}
 
     return render(request, 'golf/screengolf.html', context)
 
