@@ -40,3 +40,6 @@ def screengolf(request):
 
 def golfrule(request):
     return render(request, 'golf/golfrule.html')
+
+def map(request):
+    return render(request, 'golf/map.html')

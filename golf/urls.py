@@ -24,5 +24,6 @@ urlpatterns = [
 
     path('golfrule', views.golfrule, name='golfrule'),
     path('screengolf', views.screengolf, name='screengolf'),
+    path('map', views.map, name='map'),
 
 ]
