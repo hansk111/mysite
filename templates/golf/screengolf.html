@@ -88,14 +88,41 @@
         
     </div>
 
-    <div id="map" style="width:500px;height:400px;"></div>
-    <p>
-        <input type="checkbox" id="chkUseDistrict" onclick="setOverlayMapTypeId()" /> 지적편집도 정보 보기
-        <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" /> 지형정보 보기 
-        <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" /> 교통정보 보기       
-        <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" /> 자전거도로 정보 보기
-    </p>
 
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div id="panel-3" class="panel">
+                        <div class="panel-hdr">
+                            <h2>
+                               지도 <span class="fw-300" id = "han3"><i>지도</i></span>
+                            </h2>
+                            
+                            <div class="panel-toolbar">
+                                <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                                <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                                <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                            </div>
+                        </div>
+                        <div class="panel-container show">
+                            <div class="panel-content">
+
+                                <div id="map" style="height:800px;"></div>
+                                <p>
+                                    <input type="checkbox" id="chkUseDistrict" onclick="setOverlayMapTypeId()" /> 지적편집도 정보 보기
+                                    <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" /> 지형정보 보기 
+                                    <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" /> 교통정보 보기       
+                                    <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" /> 자전거도로 정보 보기
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </main>
@@ -104,57 +131,127 @@
 {% block script %}
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=38bf3783a685752ad3a649fc447ef74b"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=38bf3783a685752ad3a649fc447ef74b&libraries=services,clusterer,drawing"></script>
-<script>
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-        mapOption = { 
-            center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-            level: 5 // 지도의 확대 레벨
-        };
-    
-    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-    
-    // 지도에 추가된 지도타입정보를 가지고 있을 변수입니다
-    var currentTypeId;
-    
-    // 버튼이 클릭되면 호출되는 함수입니다
-    function setOverlayMapTypeId(maptype) {
-        var changeMaptype;
-        
-        // maptype에 따라 지도에 추가할 지도타입을 결정합니다
-        if (maptype === 'traffic') {            
-            
-            // 교통정보 지도타입
-            changeMaptype = kakao.maps.MapTypeId.TRAFFIC;     
-            
-        } else if (maptype === 'roadview') {        
-            
-            // 로드뷰 도로정보 지도타입
-            changeMaptype = kakao.maps.MapTypeId.ROADVIEW;    
-    
-        } else if (maptype === 'terrain') {
-            
-            // 지형정보 지도타입
-            changeMaptype = kakao.maps.MapTypeId.TERRAIN;    
-    
-        } else if (maptype === 'use_district') {
-            
-            // 지적편집도 지도타입
-            changeMaptype = kakao.maps.MapTypeId.USE_DISTRICT;           
-        }
-        
-        // 이미 등록된 지도 타입이 있으면 제거합니다
-        if (currentTypeId) {
-            map.removeOverlayMapTypeId(currentTypeId);    
-        }
-        
-        // maptype에 해당하는 지도타입을 지도에 추가합니다
-        map.addOverlayMapTypeId(changeMaptype);
-        
-        // 지도에 추가된 타입정보를 갱신합니다
-        currentTypeId = changeMaptype;        
-    }
-    </script>
+
 <script src="{% static 'js/statistics/chartjs/chartjs.bundle.js' %}"></script>
+<script>
+    /* bar & line combine1 */
+    var barlineCombine1 = function()
+        {
+            var barlineCombineData1 = {
+                labels: [
+                        {% for ma in fieldscore %}
+                            '{{ ma.date }}'
+                            {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                        {% endfor %} 
+                ],
+                datasets: [
+                {
+                    
+                    type: 'line',
+                    label: '필드 스코어',
+                    borderColor: color.danger._300,
+                    pointBackgroundColor: color.danger._500,
+                    pointBorderColor: color.danger._500,
+                    pointBorderWidth: 1,
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 5,
+                    fill: false,
+                    data: [
+                                {% for ma in fieldscore %}
+                                    '{{ ma.score }}'
+                                    {% if not forloop.last %},{% endif %}  //마지막 loop의 마지막이 아닐경우 ,를 붙인다
+                                {% endfor %}
+                    ]
+                },
+                
+    
+                
+               
+                ]
+    
+            };
+            var config = {
+                type: 'bar',
+                data: barlineCombineData1,
+                options:
+                {
+                    responsive: true,
+                    legend:
+                    {
+                        position: 'top',
+                    },
+                    title:
+                    {
+                        display: true,
+                        text: '필드 스코어'
+                    },
+                    scales:
+                    {
+                        xAxes: [
+                        {
+                            display: true,
+                            scaleLabel:
+                            {
+                                display: true,
+                                labelString: '날짜'
+                            },
+                            gridLines:
+                            {
+                                display: true,
+                                color: "#f2f2f2"
+                            },
+                            ticks:
+                            {
+                                beginAtZero: true,
+                                fontSize: 11
+                            }
+                        }],
+                        yAxes: [
+                        {
+                           
+                            display: true,
+                            scaleLabel:
+                            {
+                                display: false,
+                                labelString: 'Profit margin (approx)'
+                            },
+                            gridLines:
+                            {
+                                display: true,
+                                color: "#f2f2f2"
+                            },
+                            ticks: {
+                                max: 110,
+                                min: 70,
+                                fontSize: 11,
+                                beginAtZero: false,    
+                            }
+                            
+                        },
+                        
+                    ]
+                    }
+                }
+            }
+            new Chart($("#barlineCombine1 > canvas").get(0).getContext("2d"), config);
+        }
+        /* bar & line combine1 -- end */
+    
+      /* initialize all charts */
+      $(document).ready(function()
+        {
+           
+           
+           
+                  
+            barlineCombine1();
+           
+        });
+    
+    
+</script>
+
 <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = { 
