@@ -2,44 +2,81 @@
 {% load static %}
 
 {% block content %}
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
+        <li class="breadcrumb-item"><a href="" title="동영상 변경"동영상></a></li>
+       
+        <li class="breadcrumb-item active">올리기</li>
+        
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
 
-<div class="container border py-4 my-4 w-75">
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input type="text" name="title" class="form-control" id="title" required>
+    <div class="row">
+        <div class="col-xl-12">
+           
+            <div id="panel-5" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        동영상<span class="fw-300"><i>올리기</i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="panel-tag">
+                            동영상 올리기
+                        </div>
+
+
+                        <div class="">
+                            <form action="" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">제목</label>
+                                    <input type="text" name="title" class="form-control" id="title" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="desc" class="form-label">내용</label>
+                                    <textarea class="form-control" name="desc" id="desc" style="height: 200px;" required></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="filename" class="form-label">동영상파일 선택</label>
+                                    <input type="file" name="fileName" class="form-control" id="filename" accept="video/*" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="thumb" class="form-label">썸네일 선택</label>
+                                    <input type="file" name="thumbnail_img" class="form-control" id="thumb" accept="image/*" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">카테고리 선택</label>
+                                    <select class="form-control" name="category">
+                                        <option>Science & Techanology</option>
+                                        <option>Fashion</option>
+                                        <option>Food</option>
+                                        <option>Education</option>
+                                        <option>Blogs</option>
+                                    </select>
+                                </div>
+
+
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="mb-3">
-            <label for="desc" class="form-label">Description</label>
-            <textarea class="form-control" name="desc" id="desc" style="height: 200px;" required></textarea>
-        </div>
-
-        <div class="mb-3">
-            <label for="filename" class="form-label">Select Video File</label>
-            <input type="file" name="fileName" class="form-control" id="filename" accept="video/*" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="thumb" class="form-label">Select Thumbnail</label>
-            <input type="file" name="thumbnail_img" class="form-control" id="thumb" accept="image/*" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="title" class="form-label">Select Category</label>
-            <select class="form-control" name="category">
-                <option>Science & Techanology</option>
-                <option>Fashion</option>
-                <option>Food</option>
-                <option>Education</option>
-                <option>Blogs</option>
-            </select>
-        </div>
+    </div>
 
 
-        <button type="submit" class="btn btn-primary">Upload</button>
-    </form>
-</div>
-
+</main>
 {% endblock %}
