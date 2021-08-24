@@ -110,6 +110,7 @@ INSTALLED_APPS = [
     'chart',
     'video',
     'golf',
+    'weather',
     #allauth
     'allauth',
     'allauth.account',

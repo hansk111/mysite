@@ -1,0 +1,142 @@
+{% extends 'main_base.html' %}
+{% load static %}
+
+{% block header %}
+<link rel="stylesheet" media="screen, print" href="{% static 'css/miscellaneous/lightgallery/lightgallery.bundle.css' %}">
+
+
+{% endblock %}
+
+{% block content %}
+
+<main id="js-page-content" role="main" class="page-content">
+  <ol class="breadcrumb page-breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'index' %}">SmartHAN</a></li>
+      <li class="breadcrumb-item">동영상</li>
+      <li class="breadcrumb-item active">리스트</li>
+      <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+  </ol>
+  <!-- <div class="subheader">
+      <h1 class="subheader-title">
+          <i class='fal fa-info-circle'></i> 소개
+          <small>
+              이 사이트의 간단한 소개입니다.
+          </small>
+      </h1>
+  </div> -->
+
+
+
+  
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                  <h2>
+                      <a class="h2" href="">
+                          전체 동영상</a>&emsp;
+                      <span class="font-italic h5">동영상을 클릭하세요.</span>
+                  </h2>
+                  <div class="panel-toolbar">
+                      <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                      <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                      <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                  </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <section class="hero is-primary">
+                            <div class="hero-body">
+                                <div class="container">
+                                    <h1 class="title">
+                                        What's the weather like?
+                                    </h1>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="section">
+                            <div class="container">
+                                <div class="columns">
+                                    <div class="column is-offset-4 is-4">
+                                        <form method="POST">
+                                            <div class="field has-addons">
+                                                <div class="control is-expanded">
+                                                    <input class="input" type="text" placeholder="City Name">
+                                                </div>
+                                                <div class="control">
+                                                    <button class="button is-info">
+                                                        Add City
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="section">
+                            <div class="container">
+                                <div class="columns">
+                                    <div class="column is-offset-4 is-4">
+                                        {% for weather in weather_data %}
+                                        <div class="box">
+                                            <article class="media">
+                                                <div class="media-left">
+                                                    <figure class="image is-50x50">
+                                                        <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="Image">
+                                                    </figure>
+                                                </div>
+                                                <div class="media-content">
+                                                    <div class="content">
+                                                        <p>
+                                                            <span class="title">{{ weather.city }}</span>
+                                                            <br>
+                                                            <span class="subtitle">{{ weather.temperature }}° F</span>
+                                                            <br> {{ weather.description }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </section> 
+                    </div>
+                </div>
+            </div>
+        </div>           
+    </div>
+
+
+
+       
+
+
+</main>
+
+   
+
+
+{% endblock %}    
+{% block script %}
+
+<!-- <script src="{% static 'js/miscellaneous/lightgallery/lightgallery.bundle.js' %}"></script>
+<script type="text/javascript">
+    lightGallery(document.getElementById('gallery-videos-demo'));
+</script> -->
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.11/js/lightgallery-all.min.js"></script>
+<script>
+    $(document).ready(function() {
+    $('#lightgallery').lightGallery();
+    });
+</script>
+
+
+
+
+{% endblock %}
