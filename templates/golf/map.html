@@ -5,7 +5,7 @@
 
 <style>
     .map_wrap, .map_wrap * {margin:0; padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-    .map_wrap {position:relative;width:100%;height:350px;}
+    .map_wrap {position:relative;width:100%;height:600px;margin-top:10px;}
     #category {position:absolute;top:10px;left:10px;border-radius: 5px; border:1px solid #909090;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden;z-index: 2;}
     #category li {float:left;list-style: none;width:50px;px;border-right:1px solid #acacac;padding:6px 0;text-align: center; cursor: pointer;}
     #category li.on {background: #eee;}
@@ -35,8 +35,7 @@
 
 
 
-
-<link rel="stylesheet" media="screen, print" href="{% static 'css/statistics/chartjs/chartjs.css' %}">
+<!-- <link rel="stylesheet" media="screen, print" href="{% static 'css/statistics/chartjs/chartjs.css' %}"> -->
 <main id="js-page-content" role="main" class="page-content">
     <ol class="breadcrumb page-breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'index' %}" title="Main 화면으로">SmartHAN</a></li>
@@ -49,89 +48,149 @@
                         
     
 
-    <div class="row"> 
-
+    <div class="row">
         <div class="col-xl-12">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div id="panel-3" class="panel">
-                        <div class="panel-hdr">
-                            <h2>
-                               지도 <span class="fw-300" id = "han3"><i>지도</i></span>
-                            </h2>
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        지도 <span class="fw-300" id = "han3"><i>지도</i></span>
+                    </h2>
+                    
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="row">
+
+                            <input type="text" id="sample5_address" placeholder="주소">
+                            <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
                             
-                            <div class="panel-toolbar">
-                                <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
-                                <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
-                                <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
-                            </div>
                         </div>
-                        <div class="panel-container show">
-                            <div class="panel-content">
-                                <div class="map_wrap">
-                                    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-                                    <ul id="category">
-                                        <li id="FD6" data-order="0"> 
-                                            <span class="category_bg food"></span>
-                                            음식점
-                                        </li>
-                                        <li id="MT1" data-order="1"> 
-                                            <span class="category_bg mart"></span>
-                                            마트
-                                        </li>  
-                                        <li id="PM9" data-order="2"> 
-                                            <span class="category_bg pharmacy"></span>
-                                            약국
-                                        </li>  
-                                        <li id="OL7" data-order="3"> 
-                                            <span class="category_bg oil"></span>
-                                            주유소
-                                        </li>  
-                                        <li id="CE7" data-order="4"> 
-                                            <span class="category_bg cafe"></span>
-                                            카페
-                                        </li>  
-                                        <li id="CS2" data-order="5"> 
-                                            <span class="category_bg store"></span>
-                                            편의점
-                                        </li>      
-                                    </ul>
-                                </div>
-                                
-                            </div>
+                        <div class="map_wrap">
+                            <div id="map" style="width:100%;height:100%;"></div>
+                            <ul id="category">
+                                <li id="FD6" data-order="0"> 
+                                    <span class="category_bg food"></span>
+                                    음식점
+                                </li>
+                                <li id="MT1" data-order="1"> 
+                                    <span class="category_bg mart"></span>
+                                    마트
+                                </li>  
+                                <li id="PM9" data-order="2"> 
+                                    <span class="category_bg pharmacy"></span>
+                                    약국
+                                </li>  
+                                <li id="OL7" data-order="3"> 
+                                    <span class="category_bg oil"></span>
+                                    주유소
+                                </li>  
+                                <li id="CE7" data-order="4"> 
+                                    <span class="category_bg cafe"></span>
+                                    카페
+                                </li>  
+                                <li id="CS2" data-order="5"> 
+                                    <span class="category_bg store"></span>
+                                    편의점
+                                </li>      
+                            </ul>
                         </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
+  
+
+    
     
 </main>
 {% endblock %}
 
 {% block script %}
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=38bf3783a685752ad3a649fc447ef74b&libraries=services"></script>
+
 <script>
-    // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
-    var placeOverlay = new kakao.maps.CustomOverlay({zIndex:1}), 
-        contentNode = document.createElement('div'), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다 
-        markers = [], // 마커를 담을 배열입니다
-        currCategory = ''; // 현재 선택된 카테고리를 가지고 있을 변수입니다
+
+    var placeOverlay = new daum.maps.CustomOverlay({zIndex:1}), 
+            contentNode = document.createElement('div'), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다 
+            markers = [], // 마커를 담을 배열입니다
+            currCategory = ''; // 현재 선택된 카테고리를 가지고 있을 변수입니다
      
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+
+
+
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
-            center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+            center: new daum.maps.LatLng(37.40468939962558, 127.10991079378559), // 지도의 중심좌표
             level: 5 // 지도의 확대 레벨
-        };  
-    
-    // 지도를 생성합니다    
-    var map = new kakao.maps.Map(mapContainer, mapOption); 
-    
+        };
+
+    //지도를 미리 생성
+    var map = new daum.maps.Map(mapContainer, mapOption);
+
+    // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+    if (navigator.geolocation) {
+        
+        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+        navigator.geolocation.getCurrentPosition(function(position) {
+            
+            var lat = position.coords.latitude, // 위도
+                lon = position.coords.longitude; // 경도
+            
+            var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+                message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
+            
+            // 마커와 인포윈도우를 표시합니다
+            displayMarker(locPosition, message);
+                
+        });
+        
+    } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+        
+        var locPosition = new kakao.maps.LatLng(37.37742626208103, 127.13500267627909),    
+            message = 'geolocation을 사용할수 없어요..'
+            
+        displayMarker(locPosition, message);
+    }
+
+    // 지도에 마커와 인포윈도우를 표시하는 함수입니다
+    function displayMarker(locPosition, message) {
+
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({  
+            map: map, 
+            position: locPosition
+        }); 
+        
+        var iwContent = message, // 인포윈도우에 표시할 내용
+            iwRemoveable = true;
+
+        // 인포윈도우를 생성합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content : iwContent,
+            removable : iwRemoveable
+        });
+        
+        // 인포윈도우를 마커위에 표시합니다 
+        infowindow.open(map, marker);
+        
+        // 지도 중심좌표를 접속위치로 변경합니다
+        map.setCenter(locPosition);      
+    }    
+
+
+
     // 장소 검색 객체를 생성합니다
-    var ps = new kakao.maps.services.Places(map); 
-    
+    var ps = new daum.maps.services.Places(map); 
     // 지도에 idle 이벤트를 등록합니다
-    kakao.maps.event.addListener(map, 'idle', searchPlaces);
+    daum.maps.event.addListener(map, 'idle', searchPlaces);
     
     // 커스텀 오버레이의 컨텐츠 노드에 css class를 추가합니다 
     contentNode.className = 'placeinfo_wrap';
@@ -146,8 +205,7 @@
     
     // 각 카테고리에 클릭 이벤트를 등록합니다
     addCategoryClickEvent();
-    
-    // 엘리먼트에 이벤트 핸들러를 등록하는 함수입니다
+      // 엘리먼트에 이벤트 핸들러를 등록하는 함수입니다
     function addEventHandle(target, type, callback) {
         if (target.addEventListener) {
             target.addEventListener(type, callback);
@@ -155,7 +213,14 @@
             target.attachEvent('on' + type, callback);
         }
     }
-    
+    //주소-좌표 변환 객체를 생성
+    var geocoder = new daum.maps.services.Geocoder();
+    //마커를 미리 생성
+    var marker = new daum.maps.Marker({
+        position: new daum.maps.LatLng(37.37742626208103, 127.13500267627909),
+        map: map
+    });
+
     // 카테고리 검색을 요청하는 함수입니다
     function searchPlaces() {
         if (!currCategory) {
@@ -170,8 +235,8 @@
         
         ps.categorySearch(currCategory, placesSearchCB, {useMapBounds:true}); 
     }
-    
-    // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+
+        // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
     function placesSearchCB(data, status, pagination) {
         if (status === kakao.maps.services.Status.OK) {
     
@@ -192,14 +257,14 @@
         // 몇번째 카테고리가 선택되어 있는지 얻어옵니다
         // 이 순서는 스프라이트 이미지에서의 위치를 계산하는데 사용됩니다
         var order = document.getElementById(currCategory).getAttribute('data-order');
-    
+
         
-    
+
         for ( var i=0; i<places.length; i++ ) {
-    
+
                 // 마커를 생성하고 지도에 표시합니다
                 var marker = addMarker(new kakao.maps.LatLng(places[i].y, places[i].x), order);
-    
+
                 // 마커와 검색결과 항목을 클릭 했을 때
                 // 장소정보를 표출하도록 클릭 이벤트를 등록합니다
                 (function(marker, place) {
@@ -209,7 +274,7 @@
                 })(marker, places[i]);
         }
     }
-    
+
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     function addMarker(position, order) {
         var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
@@ -230,15 +295,15 @@
     
         return marker;
     }
-    
-    // 지도 위에 표시되고 있는 마커를 모두 제거합니다
+
+        // 지도 위에 표시되고 있는 마커를 모두 제거합니다
     function removeMarker() {
         for ( var i = 0; i < markers.length; i++ ) {
             markers[i].setMap(null);
         }   
         markers = [];
     }
-    
+
     // 클릭한 마커에 대한 장소 상세정보를 커스텀 오버레이로 표시하는 함수입니다
     function displayPlaceInfo (place) {
         var content = '<div class="placeinfo">' +
@@ -259,9 +324,8 @@
         placeOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));
         placeOverlay.setMap(map);  
     }
-    
-    
-    // 각 카테고리에 클릭 이벤트를 등록합니다
+
+        // 각 카테고리에 클릭 이벤트를 등록합니다
     function addCategoryClickEvent() {
         var category = document.getElementById('category'),
             children = category.children;
@@ -303,7 +367,40 @@
             el.className = 'on';
         } 
     } 
+
+    function sample5_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = data.address; // 최종 주소 변수
+
+                // 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("sample5_address").value = addr;
+                // 주소로 상세 정보를 검색
+                geocoder.addressSearch(data.address, function(results, status) {
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === daum.maps.services.Status.OK) {
+
+                        var result = results[0]; //첫번째 결과의 값을 활용
+
+                        // 해당 주소에 대한 좌표를 받아서
+                        var coords = new daum.maps.LatLng(result.y, result.x);
+                        // console.log(result.y, result.x)
+                        // 지도를 보여준다.
+                        mapContainer.style.display = "block";
+                        map.relayout();
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+                    }
+                });
+            }
+        }).open();
+    }
+
+
 </script>
+
 
 {% endblock %}
 
